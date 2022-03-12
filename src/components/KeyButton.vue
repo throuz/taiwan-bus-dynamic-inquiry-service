@@ -2,13 +2,13 @@
 import buttonMP3 from "../assets/button.mp3";
 
 const audio = new Audio(buttonMP3);
-const clicked = () => {
+const audioPlay = () => {
   audio.play()
 }
 </script>
 
 <template>
-  <div class="key-button" @click="clicked">
+  <div class="key-button" @click="audioPlay">
     <span>
       <slot></slot>
     </span>
