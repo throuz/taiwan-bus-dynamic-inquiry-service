@@ -28,6 +28,7 @@
 .home {
   position: relative;
   height: 100vh;
+  overflow: hidden;
   background: radial-gradient(
     86.64% 87.21% at 14.72% 0%,
     #414242 0%,
