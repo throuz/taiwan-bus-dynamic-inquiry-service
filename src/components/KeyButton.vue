@@ -3,15 +3,21 @@ import { useSlots } from 'vue'
 import { useStore } from 'vuex'
 import buttonMP3 from "../assets/button.mp3";
 
+const props = defineProps({
+  enableClick: {
+    type: Boolean,
+    default: true
+  }
+})
+
 const slots = useSlots();
 const store = useStore();
 
-const content = slots.default()[0].children;
 const audio = new Audio(buttonMP3);
 
 const clicked = () => {
   audio.play();
-  content && store.commit('addSearch', content);
+  props.enableClick && store.commit('addSearch', slots.default()[0].children);
 }
 </script>
 

@@ -4,10 +4,10 @@ import KeyButton from "./KeyButton.vue";
 
 <template>
   <div class="keyboard">
-    <KeyButton class="county">
+    <KeyButton class="county" :enableClick="false">
       <font-awesome-icon icon="location-dot" />&nbsp;&nbsp;選擇縣市
     </KeyButton>
-    <KeyButton class="blue manual-entry">手動輸入</KeyButton>
+    <KeyButton class="blue manual-entry" :enableClick="false">手動輸入</KeyButton>
     <KeyButton class="blue">紅</KeyButton>
     <KeyButton class="blue">藍</KeyButton>
     <KeyButton class="font-roboto">1</KeyButton>
@@ -24,10 +24,10 @@ import KeyButton from "./KeyButton.vue";
     <KeyButton class="font-roboto">8</KeyButton>
     <KeyButton class="font-roboto">9</KeyButton>
     <KeyButton class="blue">幹線</KeyButton>
-    <KeyButton class="blue">更多</KeyButton>
-    <KeyButton class="blue font-roboto">C</KeyButton>
+    <KeyButton class="blue" :enableClick="false">更多</KeyButton>
+    <KeyButton class="blue font-roboto" :enableClick="false">C</KeyButton>
     <KeyButton class="font-roboto">0</KeyButton>
-    <KeyButton class="blue">
+    <KeyButton class="blue" :enableClick="false">
       <font-awesome-icon icon="delete-left" />
     </KeyButton>
   </div>
