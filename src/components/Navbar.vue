@@ -1,9 +1,27 @@
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex'
+
+const store = useStore();
+const search = computed(() => store.getters.search);
+const updateSearch = (e) => {
+  store.commit('updateSearch', e.target.value)
+}
+</script>
+
 <template>
   <div class="navbar">
     <router-link to="/">
       <img class="logo-home" alt="logo" src="../assets/logo-home.png" />
     </router-link>
-    <input type="text" name="route" id="route" placeholder="選擇路線或手動輸入關鍵字" />
+    <input
+      type="text"
+      name="route"
+      id="route"
+      placeholder="選擇路線或手動輸入關鍵字"
+      :value="search"
+      @input="updateSearch"
+    />
   </div>
 </template>
 

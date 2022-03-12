@@ -1,14 +1,22 @@
 <script setup>
+import { useSlots } from 'vue'
+import { useStore } from 'vuex'
 import buttonMP3 from "../assets/button.mp3";
 
+const slots = useSlots();
+const store = useStore();
+
+const content = slots.default()[0].children;
 const audio = new Audio(buttonMP3);
-const audioPlay = () => {
-  audio.play()
+
+const clicked = () => {
+  audio.play();
+  content && store.commit('addSearch', content);
 }
 </script>
 
 <template>
-  <div class="key-button" @click="audioPlay">
+  <div class="key-button" @click="clicked">
     <span>
       <slot></slot>
     </span>
