@@ -21,9 +21,12 @@
   width: 100%;
   font-size: 16px;
   padding: 9px 12px;
-  color: #414242;
+  color: #1cc8ee;
   background: #1c1d1d;
   border-radius: 6px;
   border: none;
+}
+::placeholder {
+  color: #414242;
 }
 </style>

@@ -10,23 +10,23 @@ import KeyButton from "./KeyButton.vue";
     <KeyButton class="blue manual-entry">手動輸入</KeyButton>
     <KeyButton class="blue">紅</KeyButton>
     <KeyButton class="blue">藍</KeyButton>
-    <KeyButton>1</KeyButton>
-    <KeyButton>2</KeyButton>
-    <KeyButton>3</KeyButton>
+    <KeyButton class="font-roboto">1</KeyButton>
+    <KeyButton class="font-roboto">2</KeyButton>
+    <KeyButton class="font-roboto">3</KeyButton>
     <KeyButton class="blue">綠</KeyButton>
     <KeyButton class="blue">棕</KeyButton>
-    <KeyButton>4</KeyButton>
-    <KeyButton>5</KeyButton>
-    <KeyButton>6</KeyButton>
+    <KeyButton class="font-roboto">4</KeyButton>
+    <KeyButton class="font-roboto">5</KeyButton>
+    <KeyButton class="font-roboto">6</KeyButton>
     <KeyButton class="blue">橘</KeyButton>
     <KeyButton class="blue">小</KeyButton>
-    <KeyButton>7</KeyButton>
-    <KeyButton>8</KeyButton>
-    <KeyButton>9</KeyButton>
+    <KeyButton class="font-roboto">7</KeyButton>
+    <KeyButton class="font-roboto">8</KeyButton>
+    <KeyButton class="font-roboto">9</KeyButton>
     <KeyButton class="blue">幹線</KeyButton>
     <KeyButton class="blue">更多</KeyButton>
-    <KeyButton class="blue">C</KeyButton>
-    <KeyButton>0</KeyButton>
+    <KeyButton class="blue font-roboto">C</KeyButton>
+    <KeyButton class="font-roboto">0</KeyButton>
     <KeyButton class="blue">
       <font-awesome-icon icon="delete-left" />
     </KeyButton>

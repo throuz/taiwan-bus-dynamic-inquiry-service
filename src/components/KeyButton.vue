@@ -1,11 +1,16 @@
 <template>
   <div class="key-button">
-    <slot></slot>
+    <span>
+      <slot></slot>
+    </span>
   </div>
 </template>
 
 <style scoped>
 .key-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid #1cc8ee;
   border-radius: 9px;
   padding: 10px;

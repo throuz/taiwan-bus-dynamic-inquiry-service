@@ -9,3 +9,11 @@ import Keyboard from "../components/Keyboard.vue";
     <Keyboard />
   </div>
 </template>
+
+<style scoped>
+.inquire-bus {
+  position: relative;
+  height: 100vh;
+  background: #131414;
+}
+</style>
