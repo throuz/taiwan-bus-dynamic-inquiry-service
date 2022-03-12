@@ -5,6 +5,7 @@ import Keyboard from "../components/Keyboard.vue";
 
 <template>
   <div class="inquire-bus">
+    <Navbar />
     <span>請先選擇縣市</span>
     <Keyboard />
   </div>
@@ -12,6 +13,10 @@ import Keyboard from "../components/Keyboard.vue";
 
 <style scoped>
 .inquire-bus {
-  padding: 24px 16px;
+  position: relative;
+  height: 100vh;
+  padding: 99px 16px 0 16px;
+  background: #131414;
+  box-sizing: border-box;
 }
 </style>

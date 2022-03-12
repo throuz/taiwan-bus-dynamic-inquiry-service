@@ -5,8 +5,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
-    meta: { navbar: false }
+    component: Home
   },
   {
     path: "/about",
@@ -21,8 +20,7 @@ const routes = [
     path: "/inquire-bus",
     name: "InquireBus",
     component: () =>
-      import(/* webpackChunkName: "inquire-bus" */ "../views/InquireBus.vue"),
-    meta: { navbar: true }
+      import(/* webpackChunkName: "inquire-bus" */ "../views/InquireBus.vue")
   },
 ];
 

@@ -37,9 +37,9 @@ import KeyButton from "./KeyButton.vue";
 .keyboard {
   position: absolute;
   padding: 20px;
-  left: 0%;
-  right: 0%;
-  bottom: 0%;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: #1c1d1d;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

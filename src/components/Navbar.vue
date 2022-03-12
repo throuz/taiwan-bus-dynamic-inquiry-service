@@ -9,6 +9,10 @@
 
 <style scoped>
 .navbar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
   padding: 17px;
   box-sizing: border-box;
   background: #131414;
