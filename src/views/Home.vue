@@ -20,6 +20,7 @@
     <div class="text text3">
       <font-awesome-icon icon="magnifying-glass" />&nbsp;查詢客運
     </div>
+    <div class="copyright">Taiwan Bus © Code: Rui Sheng Xu / Design: KT</div>
   </div>
 </template>
 
@@ -124,7 +125,6 @@
   position: absolute;
   font-weight: 500;
   font-size: 17px;
-  color: #f5f5f5;
 }
 .text1 {
   left: 65%;
@@ -137,5 +137,12 @@
 .text3 {
   left: 23%;
   top: 72%;
+}
+.copyright {
+  position: absolute;
+  right: 5%;
+  bottom: 1%;
+  font-family: "Roboto";
+  font-size: 12px;
 }
 </style>
