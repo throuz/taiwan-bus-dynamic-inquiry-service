@@ -36,6 +36,8 @@
 }
 .logo {
   position: absolute;
+  width: 48%;
+  height: 12%;
   top: 19%;
   left: 16%;
 }
@@ -124,18 +126,18 @@
 .text {
   position: absolute;
   font-weight: 500;
-  font-size: 17px;
+  font-size: 4.7vw;
 }
 .text1 {
   left: 65%;
-  top: 35%;
+  top: 36%;
 }
 .text2 {
   left: 59%;
   top: 55%;
 }
 .text3 {
-  left: 23%;
+  left: 22%;
   top: 72%;
 }
 .copyright {
@@ -143,6 +145,6 @@
   right: 5%;
   bottom: 1%;
   font-family: "Roboto";
-  font-size: 12px;
+  font-size: 3vw;
 }
 </style>
