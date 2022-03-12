@@ -14,9 +14,9 @@
     <div class="text text1">
       <font-awesome-icon icon="location-dot" />&nbsp;附近公車站
     </div>
-    <div class="text text2">
+    <router-link class="text text2" to="/inquire-bus">
       <font-awesome-icon icon="magnifying-glass" />&nbsp;查詢公車
-    </div>
+    </router-link>
     <div class="text text3">
       <font-awesome-icon icon="magnifying-glass" />&nbsp;查詢客運
     </div>
@@ -139,6 +139,11 @@
 .text3 {
   left: 22%;
   top: 72%;
+}
+a:link,
+a:visited {
+  color: #f5f5f5;
+  text-decoration: none;
 }
 .copyright {
   position: absolute;

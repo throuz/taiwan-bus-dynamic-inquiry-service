@@ -6,6 +6,7 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: { navbar: false }
   },
   {
     path: "/about",
@@ -21,6 +22,7 @@ const routes = [
     name: "InquireBus",
     component: () =>
       import(/* webpackChunkName: "inquire-bus" */ "../views/InquireBus.vue"),
+    meta: { navbar: true }
   },
 ];
 
