@@ -1,5 +1,8 @@
 <script setup>
+import { useStore } from 'vuex'
 import KeyButton from "./KeyButton.vue";
+
+const store = useStore();
 </script>
 
 <template>
@@ -25,9 +28,9 @@ import KeyButton from "./KeyButton.vue";
     <KeyButton class="font-roboto">9</KeyButton>
     <KeyButton class="blue">幹線</KeyButton>
     <KeyButton class="blue" :enableClick="false">更多</KeyButton>
-    <KeyButton class="blue font-roboto" :enableClick="false">C</KeyButton>
+    <KeyButton class="blue font-roboto" :enableClick="false" @click="store.commit('clearSearch')">C</KeyButton>
     <KeyButton class="font-roboto">0</KeyButton>
-    <KeyButton class="blue" :enableClick="false">
+    <KeyButton class="blue" :enableClick="false" @click="store.commit('deleteSearch')">
       <font-awesome-icon icon="delete-left" />
     </KeyButton>
   </div>

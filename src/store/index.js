@@ -15,6 +15,12 @@ export default createStore({
     },
     addSearch(state, value) {
       state.search += value
+    },
+    deleteSearch(state) {
+      state.search = state.search.slice(0, -1)
+    },
+    clearSearch(state) {
+      state.search = ''
     }
   },
   actions: {},
