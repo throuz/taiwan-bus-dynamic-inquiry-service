@@ -1,6 +1,11 @@
 <script setup>
+import { ref, provide } from 'vue';
 import Navbar from "../components/Navbar.vue";
 import KeyboardWrap from "../components/KeyboardWrap.vue";
+
+const searchRef = ref(null);
+
+provide('searchRef', searchRef);
 </script>
 
 <template>

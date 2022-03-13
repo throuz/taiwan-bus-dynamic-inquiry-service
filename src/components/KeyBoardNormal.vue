@@ -4,7 +4,8 @@ import { useStore } from 'vuex';
 import KeyButton from "./KeyButton.vue";
 
 const store = useStore();
-const status = inject('status')
+const status = inject('status');
+const searchRef = inject('searchRef');
 const searchCounty = computed(() => store.getters.searchCounty);
 </script>
 
@@ -13,7 +14,7 @@ const searchCounty = computed(() => store.getters.searchCounty);
     <font-awesome-icon icon="location-dot" />
     &nbsp;&nbsp;{{ searchCounty }}
   </KeyButton>
-  <KeyButton class="blue manual-entry" :enableClick="false">手動輸入</KeyButton>
+  <KeyButton class="blue manual-entry" :enableClick="false" @click="searchRef.focus()">手動輸入</KeyButton>
   <KeyButton class="blue">紅</KeyButton>
   <KeyButton class="blue">藍</KeyButton>
   <KeyButton class="font-roboto">1</KeyButton>

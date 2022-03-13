@@ -1,9 +1,16 @@
 <script setup>
-import { computed } from 'vue';
+import { ref, computed, inject, onMounted } from 'vue';
 import { useStore } from 'vuex'
 
 const store = useStore();
 const search = computed(() => store.getters.search);
+const searchRef = inject('searchRef');
+const searchInput = ref(null);
+
+onMounted(() => {
+  searchRef.value = searchInput.value;
+})
+
 const updateSearch = (e) => {
   store.commit('updateSearch', e.target.value)
 }
@@ -15,6 +22,7 @@ const updateSearch = (e) => {
       <img class="logo-home" alt="logo" src="../assets/logo-home.png" />
     </router-link>
     <input
+      ref="searchInput"
       type="text"
       name="route"
       id="route"
