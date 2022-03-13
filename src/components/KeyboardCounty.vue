@@ -14,7 +14,7 @@ const updateSelectCounty = (county) => {
 };
 const setupCounty = () => {
   status.value = 'normal';
-  selectCounty.value && store.commit('updateSearchCounty', selectCounty.value);
+  store.commit('updateSearchCounty', selectCounty.value);
 };
 </script>
 

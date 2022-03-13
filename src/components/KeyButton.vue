@@ -1,5 +1,5 @@
 <script setup>
-import { useSlots } from 'vue'
+import { computed, useSlots } from 'vue'
 import { useStore } from 'vuex'
 import buttonMP3 from "../assets/button.mp3";
 
@@ -9,15 +9,16 @@ const props = defineProps({
     default: true
   }
 })
-
 const slots = useSlots();
 const store = useStore();
-
+const searchCounty = computed(() => store.getters.searchCounty);
 const audio = new Audio(buttonMP3);
 
 const clicked = () => {
   audio.play();
-  props.enableClick && store.commit('addSearch', slots.default()[0].children);
+  if (props.enableClick) {
+    searchCounty.value === '選擇縣市' ? alert('請先選擇縣市') : store.commit('addSearch', slots.default()[0].children);
+  }
 }
 </script>
 
