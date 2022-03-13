@@ -1,12 +1,18 @@
 <script setup>
-import { ref, provide } from 'vue';
+import { ref, provide, onUnmounted } from 'vue';
+import { useStore } from 'vuex';
 import Navbar from "../components/Navbar.vue";
 import KeyboardWrap from "../components/KeyboardWrap.vue";
 
+const store = useStore();
 const searchRef = ref(null);
 const distance = ref(0);
 provide('searchRef', searchRef);
 provide('distance', distance);
+
+onUnmounted(() => {
+  store.commit('updateSearchCounty', '');
+})
 </script>
 
 <template>
