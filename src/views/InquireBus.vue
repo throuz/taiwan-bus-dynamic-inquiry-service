@@ -13,6 +13,7 @@ provide('distance', distance);
 
 onUnmounted(() => {
   store.commit('updateSearchCounty', '');
+  store.commit('updateBusRoutes', []);
 })
 </script>
 
