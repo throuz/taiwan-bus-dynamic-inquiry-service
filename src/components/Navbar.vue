@@ -6,6 +6,7 @@ const store = useStore();
 const search = computed(() => store.getters.search);
 const searchRef = inject('searchRef');
 const searchInput = ref(null);
+const distance = inject('distance');
 
 onMounted(() => {
   searchRef.value = searchInput.value;
@@ -29,6 +30,7 @@ const updateSearch = (e) => {
       placeholder="選擇路線或手動輸入關鍵字"
       :value="search"
       @input="updateSearch"
+      @focus="distance = 0"
     />
   </div>
 </template>
