@@ -17,9 +17,8 @@ const updateSearch = (e) => {
   store.commit('updateSearch', e.target.value)
 }
 const focused = () => {
-  if (searchCounty.value) {
-    distance.value = 0;
-  } else {
+  distance.value = 0;
+  if (!searchCounty.value) {
     alert('請先選擇縣市');
     searchInput.value.blur();
   }
