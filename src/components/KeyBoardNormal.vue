@@ -30,7 +30,7 @@ const searchCounty = computed(() => store.getters.searchCounty);
   <KeyButton class="font-roboto">8</KeyButton>
   <KeyButton class="font-roboto">9</KeyButton>
   <KeyButton class="blue">幹線</KeyButton>
-  <KeyButton class="blue" :enableClick="false">更多</KeyButton>
+  <KeyButton class="blue" :enableClick="false" @click="status = 'more'">更多</KeyButton>
   <KeyButton class="blue font-roboto" :enableClick="false" @click="store.commit('clearSearch')">C</KeyButton>
   <KeyButton class="font-roboto">0</KeyButton>
   <KeyButton class="blue" :enableClick="false" @click="store.commit('deleteSearch')">

@@ -2,6 +2,7 @@
 import { ref, provide } from 'vue'
 import KeyBoardNormal from "./KeyBoardNormal.vue";
 import KeyboardCounty from "./KeyboardCounty.vue";
+import KeyboardMore from "./KeyboardMore.vue";
 
 const status = ref('normal');
 provide('status', status)
@@ -11,6 +12,7 @@ provide('status', status)
   <div class="keyboard">
     <KeyBoardNormal v-if="status === 'normal'" />
     <KeyboardCounty v-if="status === 'county'" />
+    <KeyboardMore v-if="status === 'more'" />
   </div>
 </template>
 
