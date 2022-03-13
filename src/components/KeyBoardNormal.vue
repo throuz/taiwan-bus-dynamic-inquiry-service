@@ -12,7 +12,7 @@ const searchCounty = computed(() => store.getters.searchCounty);
 <template>
   <KeyButton class="select-county" :enableClick="false" @click="status = 'county'">
     <font-awesome-icon icon="location-dot" />
-    &nbsp;&nbsp;{{ searchCounty }}
+    &nbsp;&nbsp;{{ searchCounty ? searchCounty : '選擇縣市' }}
   </KeyButton>
   <KeyButton class="blue manual-entry" :enableClick="false" @click="searchRef.focus()">手動輸入</KeyButton>
   <KeyButton class="blue">紅</KeyButton>

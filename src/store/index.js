@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     search: '',
-    searchCounty: '選擇縣市'
+    searchCounty: ''
   },
   getters: {
     search(state) {
