@@ -12,6 +12,7 @@ provide('searchRef', searchRef);
 provide('distance', distance);
 
 onUnmounted(() => {
+  store.commit('clearSearch');
   store.commit('updateSearchCounty', '');
   store.commit('updateBusRoutes', []);
 })
