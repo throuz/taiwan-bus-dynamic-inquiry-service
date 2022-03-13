@@ -3,7 +3,7 @@
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Roboto:wght@400;500&display=swap");
 
 body {
   margin: 0;
@@ -13,7 +13,7 @@ body {
   color: #f5f5f5;
 }
 .font-roboto {
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
 }
 .blue {
   color: #1cc8ee;

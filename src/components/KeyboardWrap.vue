@@ -43,7 +43,7 @@ const dragEnd = () => {
 
 <style scoped>
 .keyboard {
-  position: absolute;
+  position: fixed;
   padding: 20px;
   left: 0;
   right: 0;

@@ -2,6 +2,7 @@
 import { ref, provide, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import Navbar from "../components/Navbar.vue";
+import BusList from "../components/BusList.vue";
 import KeyboardWrap from "../components/KeyboardWrap.vue";
 
 const store = useStore();
@@ -18,7 +19,7 @@ onUnmounted(() => {
 <template>
   <div class="inquire-bus">
     <Navbar />
-    <span>請先選擇縣市</span>
+    <BusList />
     <KeyboardWrap />
   </div>
 </template>
@@ -27,9 +28,9 @@ onUnmounted(() => {
 .inquire-bus {
   position: relative;
   height: 100vh;
-  padding: 99px 16px 0 16px;
+  padding: 99px 16px 24px 16px;
   background: #131414;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: scroll;
 }
 </style>
