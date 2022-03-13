@@ -5,12 +5,14 @@ import { useStore } from 'vuex';
 const store = useStore();
 const searchCounty = computed(() => store.getters.searchCounty);
 const busRoutes = computed(() => store.getters.busRoutes);
+const search = computed(() => store.getters.search);
+const routes = computed(() => busRoutes.value.filter(route => route.name.includes(search.value)));
 </script>
 
 <template>
   <div class="bus-list">
     <div class="county-name">{{ searchCounty ? searchCounty : '請先選擇縣市' }}</div>
-    <div v-for="route in busRoutes" class="route-wrap">
+    <div v-for="route in routes" class="route-wrap">
       <div class="route-name font-roboto">{{ route.name }}</div>
       <div class="route-describe">
         <span class="text">{{ route.departure }}</span>
