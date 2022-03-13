@@ -2,11 +2,15 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    search: ''
+    search: '',
+    searchCounty: '選擇縣市'
   },
   getters: {
     search(state) {
       return state.search;
+    },
+    searchCounty(state) {
+      return state.searchCounty;
     }
   },
   mutations: {
@@ -21,6 +25,9 @@ export default createStore({
     },
     clearSearch(state) {
       state.search = ''
+    },
+    updateSearchCounty(state, county) {
+      state.searchCounty = county
     }
   },
   actions: {},
