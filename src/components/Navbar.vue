@@ -7,6 +7,7 @@ const search = computed(() => store.getters.search);
 const searchRef = inject('searchRef');
 const searchInput = ref(null);
 const distance = inject('distance');
+const searchCounty = computed(() => store.getters.searchCounty);
 
 onMounted(() => {
   searchRef.value = searchInput.value;
@@ -14,6 +15,14 @@ onMounted(() => {
 
 const updateSearch = (e) => {
   store.commit('updateSearch', e.target.value)
+}
+const focused = () => {
+  if (searchCounty.value) {
+    distance.value = 0;
+  } else {
+    alert('請先選擇縣市');
+    searchInput.value.blur();
+  }
 }
 </script>
 
@@ -30,7 +39,7 @@ const updateSearch = (e) => {
       placeholder="選擇路線或手動輸入關鍵字"
       :value="search"
       @input="updateSearch"
-      @focus="distance = 0"
+      @focus="focused"
     />
   </div>
 </template>

@@ -18,7 +18,7 @@ const touching = ref(false);
 const clicked = () => {
   audio.play();
   if (props.enableClick) {
-    !!searchCounty.value ? store.commit('addSearch', slots.default()[0].children) : alert('請先選擇縣市');
+    searchCounty.value ? store.commit('addSearch', slots.default()[0].children) : alert('請先選擇縣市');
   }
 }
 </script>
