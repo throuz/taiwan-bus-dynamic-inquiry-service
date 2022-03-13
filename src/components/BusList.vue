@@ -4,17 +4,18 @@ import { useStore } from 'vuex';
 
 const store = useStore();
 const searchCounty = computed(() => store.getters.searchCounty);
+const busRoutes = computed(() => store.getters.busRoutes);
 </script>
 
 <template>
   <div class="bus-list">
     <div class="county-name">{{ searchCounty ? searchCounty : '請先選擇縣市' }}</div>
-    <div class="route-wrap">
-      <div class="route-name font-roboto">紅10</div>
+    <div v-for="route in busRoutes" class="route-wrap">
+      <div class="route-name font-roboto">{{ route.name }}</div>
       <div class="route-describe">
-        <span class="text">台北海大</span>
+        <span class="text">{{ route.departure }}</span>
         &nbsp;&nbsp;往&nbsp;&nbsp;
-        <span class="text">捷運劍潭站</span>
+        <span class="text">{{ route.destination }}</span>
       </div>
     </div>
   </div>

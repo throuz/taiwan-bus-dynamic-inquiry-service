@@ -15,6 +15,12 @@ const updateSelectCounty = (county) => {
 const setupCounty = () => {
   status.value = 'normal';
   store.commit('updateSearchCounty', selectCounty.value);
+  store.dispatch('asyncUpdateBusRoutes');
+
+  const busRoutes = computed(() => store.getters.busRoutes);
+  setTimeout(() => {
+    console.log(busRoutes.value);
+  }, 500);
 };
 </script>
 
