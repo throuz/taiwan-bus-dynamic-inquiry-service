@@ -1,5 +1,5 @@
 <script setup>
-import { computed, useSlots } from 'vue'
+import { ref, computed, useSlots } from 'vue'
 import { useStore } from 'vuex'
 import buttonMP3 from "../assets/button.mp3";
 
@@ -11,8 +11,9 @@ const props = defineProps({
 })
 const slots = useSlots();
 const store = useStore();
-const searchCounty = computed(() => store.getters.searchCounty);
 const audio = new Audio(buttonMP3);
+const searchCounty = computed(() => store.getters.searchCounty);
+const touching = ref(false);
 
 const clicked = () => {
   audio.play();
@@ -23,7 +24,12 @@ const clicked = () => {
 </script>
 
 <template>
-  <div class="key-button" @click="clicked">
+  <div
+    :class="['key-button', touching && 'touching']"
+    @click="clicked"
+    @touchstart="touching = true"
+    @touchend="touching = false"
+  >
     <span>
       <slot></slot>
     </span>
@@ -41,5 +47,9 @@ const clicked = () => {
   text-align: center;
   box-shadow: 0px 0px 6px #1cc8ee, 0px 0px 2px #1cc8ee;
   font-size: 14px;
+}
+.touching {
+  color: #131414;
+  background: #1cc8ee;
 }
 </style>
