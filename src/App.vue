@@ -15,4 +15,7 @@ body {
 .font-roboto {
   font-family: "Roboto";
 }
+.blue {
+  color: #1cc8ee;
+}
 </style>

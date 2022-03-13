@@ -1,13 +1,13 @@
 <script setup>
 import Navbar from "../components/Navbar.vue";
-import Keyboard from "../components/Keyboard.vue";
+import KeyboardWrap from "../components/KeyboardWrap.vue";
 </script>
 
 <template>
   <div class="inquire-bus">
     <Navbar />
     <span>請先選擇縣市</span>
-    <Keyboard />
+    <KeyboardWrap />
   </div>
 </template>
 
