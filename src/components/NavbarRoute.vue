@@ -1,3 +1,9 @@
+<script setup>
+import { ref } from 'vue';
+
+const active = ref('left');
+</script>
+
 <template>
   <div class="navbar-route">
     <div class="top-bar">
@@ -9,15 +15,15 @@
       </router-link>
     </div>
     <div class="route-bar">
-      <div class="stop">
+      <div class="stop" @click="active = 'left'">
         往
         <span class="text">劍潭捷運站</span>
       </div>
-      <div class="stop">
+      <div class="stop" @click="active = 'right'">
         往
         <span class="text">台北海大</span>
       </div>
-      <div class="active"></div>
+      <div class="active" :style="{ left: active === 'left' ? 0 : '50%' }"></div>
     </div>
   </div>
 </template>
@@ -69,5 +75,6 @@
   width: 50%;
   height: 2.5px;
   box-shadow: 0px 0px 6px #1cc8ee, 0px 0px 2px #1cc8ee;
+  transition: 0.2s;
 }
 </style>
