@@ -22,6 +22,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "inquire-bus" */ "../views/InquireBus.vue")
   },
+  {
+    path: "/bus-dynamic-info",
+    name: "BusDynamicInfo",
+    component: () =>
+      import(/* webpackChunkName: "bus-dynamic-info" */ "../views/BusDynamicInfo.vue")
+  }
 ];
 
 const router = createRouter({
