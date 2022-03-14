@@ -10,10 +10,14 @@
         <div class="stop-state-circle"></div>
       </div>
     </div>
+    <div class="stop-line"></div>
   </div>
 </template>
 
 <style scoped>
+.stop-list {
+  position: relative;
+}
 .seconds-ago {
   font-size: 12px;
   color: #1cc8ee;
@@ -54,9 +58,20 @@
   width: 15px;
   height: 15px;
   background: #1cc8ee;
+  /* background: #1c1d1d; */
+  z-index: 1;
   border: 1.4px solid #1cc8ee;
   box-shadow: 0px 0px 6px #1cc8ee, 0px 0px 2px #1cc8ee;
   border-radius: 50%;
   margin: 0 4px;
+}
+.stop-line {
+  position: absolute;
+  top: 38px;
+  right: 12.9px;
+  width: 1.2px;
+  height: calc(100% - 59px);
+  background: #1cc8ee;
+  box-shadow: 0px 0px 5px #1cc8ee;
 }
 </style>
