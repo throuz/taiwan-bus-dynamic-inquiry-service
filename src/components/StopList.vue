@@ -31,6 +31,102 @@ const stops = ref([
     name: '社子派出所',
     wheelchair: false,
     plate: ''
+  },
+  {
+    state: 'pit',
+    name: '士林區農會',
+    wheelchair: true,
+    plate: '619-U3'
+  },
+  {
+    state: '4分',
+    name: '士林國中',
+    wheelchair: false,
+    plate: ''
+  },
+  {
+    state: '9分',
+    name: '社子市場',
+    wheelchair: false,
+    plate: '568-FR'
+  },
+  {
+    state: 'leave',
+    name: '社子派出所',
+    wheelchair: false,
+    plate: ''
+  },
+  {
+    state: 'pit',
+    name: '士林區農會',
+    wheelchair: true,
+    plate: '619-U3'
+  },
+  {
+    state: '4分',
+    name: '士林國中',
+    wheelchair: false,
+    plate: ''
+  },
+  {
+    state: '9分',
+    name: '社子市場',
+    wheelchair: false,
+    plate: '568-FR'
+  },
+  {
+    state: 'leave',
+    name: '社子派出所',
+    wheelchair: false,
+    plate: ''
+  },
+  {
+    state: 'pit',
+    name: '士林區農會',
+    wheelchair: true,
+    plate: '619-U3'
+  },
+  {
+    state: '4分',
+    name: '士林國中',
+    wheelchair: false,
+    plate: ''
+  },
+  {
+    state: '9分',
+    name: '社子市場',
+    wheelchair: false,
+    plate: '568-FR'
+  },
+  {
+    state: 'leave',
+    name: '社子派出所',
+    wheelchair: false,
+    plate: ''
+  },
+  {
+    state: 'pit',
+    name: '士林區農會',
+    wheelchair: true,
+    plate: '619-U3'
+  },
+  {
+    state: '4分',
+    name: '士林國中',
+    wheelchair: false,
+    plate: ''
+  },
+  {
+    state: '9分',
+    name: '社子市場',
+    wheelchair: false,
+    plate: '568-FR'
+  },
+  {
+    state: 'leave',
+    name: '社子派出所',
+    wheelchair: false,
+    plate: ''
   }
 ]);
 </script>

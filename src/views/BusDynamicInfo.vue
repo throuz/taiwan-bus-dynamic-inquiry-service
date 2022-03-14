@@ -14,7 +14,7 @@ import StopList from "../components/StopList.vue";
 .bus-dynamic-info {
   position: relative;
   height: 100vh;
-  padding: 150px 16px 24px 16px;
+  padding: 150px 16px 10px 16px;
   background: #1c1d1d;
   box-sizing: border-box;
   overflow: scroll;

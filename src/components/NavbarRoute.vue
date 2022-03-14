@@ -39,6 +39,7 @@ const active = ref('left');
   box-sizing: border-box;
   background: #131414;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
+  z-index: 2;
 }
 .top-bar {
   position: relative;
