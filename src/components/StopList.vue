@@ -39,12 +39,12 @@ const stops = ref([
   <div class="stop-list">
     <div class="seconds-ago blue">*於3秒前更新</div>
     <div v-for="stop in stops" class="stop-wrap">
-      <div class="stop-state blue">{{ stop.state }}</div>
-      <div class="stop-name">{{ stop.name }}</div>
+      <div :class="['stop-state', 'blue', stop.state]">{{ stop.state }}</div>
+      <div :class="['stop-name', stop.state === 'pit' && 'blue']">{{ stop.name }}</div>
       <div class="car-info blue">
         <font-awesome-icon v-if="stop.wheelchair" icon="wheelchair" class="wheelchair" />
         <span v-if="stop.plate" class="font-roboto">{{ stop.plate }}</span>
-        <div class="stop-state-circle"></div>
+        <div :class="['stop-state-circle', stop.state === 'pit' && 'bg-blue']"></div>
       </div>
     </div>
     <div class="stop-line"></div>
@@ -76,6 +76,22 @@ const stops = ref([
   border-radius: 12px;
   text-align: center;
 }
+.no-dep {
+  border: none;
+  box-shadow: none;
+  color: #414242;
+}
+.pit {
+  box-shadow: none;
+  background: #1cc8ee;
+  color: #131414;
+}
+.leave {
+  border: none;
+  box-shadow: none;
+  background: #414242;
+  color: #f5f5f5;
+}
 .stop-name {
   flex: 1;
   padding-left: 11px;
@@ -97,6 +113,9 @@ const stops = ref([
   box-shadow: 0px 0px 6px #1cc8ee, 0px 0px 2px #1cc8ee;
   border-radius: 50%;
   margin: 0 4px;
+}
+.bg-blue {
+  background: #1cc8ee;
 }
 .stop-line {
   position: absolute;
