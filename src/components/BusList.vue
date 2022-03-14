@@ -12,14 +12,16 @@ const routes = computed(() => busRoutes.value.filter(route => route.name.include
 <template>
   <div class="bus-list">
     <div class="county-name">{{ searchCounty ? searchCounty : '請先選擇縣市' }}</div>
-    <div v-for="route in routes" class="route-wrap">
-      <div class="route-name font-roboto">{{ route.name }}</div>
-      <div class="route-describe">
-        <span class="text">{{ route.departure }}</span>
-        &nbsp;&nbsp;往&nbsp;&nbsp;
-        <span class="text">{{ route.destination }}</span>
+    <router-link to="/bus-dynamic-info">
+      <div v-for="route in routes" class="route-wrap">
+        <div class="route-name font-roboto">{{ route.name }}</div>
+        <div class="route-describe">
+          <span class="text">{{ route.departure }}</span>
+          &nbsp;&nbsp;往&nbsp;&nbsp;
+          <span class="text">{{ route.destination }}</span>
+        </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 

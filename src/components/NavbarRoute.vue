@@ -1,13 +1,15 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const active = ref('left');
 </script>
 
 <template>
   <div class="navbar-route">
     <div class="top-bar">
-      <div class="back">
+      <div class="back" @click="router.back()">
         <font-awesome-icon icon="angle-left" size="lg" />
       </div>
       <router-link to="/">
