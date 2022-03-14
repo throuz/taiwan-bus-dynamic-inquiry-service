@@ -1,27 +1,31 @@
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 const store = useStore();
+const router = useRouter();
 const searchCounty = computed(() => store.getters.searchCounty);
 const busRoutes = computed(() => store.getters.busRoutes);
 const search = computed(() => store.getters.search);
 const routes = computed(() => busRoutes.value.filter(route => route.name.includes(search.value)));
+
+const routeClick = () => {
+  router.push('/bus-dynamic-info');
+}
 </script>
 
 <template>
   <div class="bus-list">
     <div class="county-name">{{ searchCounty ? searchCounty : '請先選擇縣市' }}</div>
-    <router-link to="/bus-dynamic-info">
-      <div v-for="route in routes" class="route-wrap">
-        <div class="route-name font-roboto">{{ route.name }}</div>
-        <div class="route-describe">
-          <span class="text">{{ route.departure }}</span>
-          &nbsp;&nbsp;往&nbsp;&nbsp;
-          <span class="text">{{ route.destination }}</span>
-        </div>
+    <div v-for="route in routes" class="route-wrap" @click="routeClick">
+      <div class="route-name font-roboto">{{ route.name }}</div>
+      <div class="route-describe">
+        <span class="text">{{ route.departure }}</span>
+        &nbsp;&nbsp;往&nbsp;&nbsp;
+        <span class="text">{{ route.destination }}</span>
       </div>
-    </router-link>
+    </div>
   </div>
 </template>
 
