@@ -26,7 +26,7 @@ const focused = () => {
 </script>
 
 <template>
-  <div class="navbar">
+  <div class="navbar-search">
     <router-link to="/">
       <img class="logo-home" alt="logo" src="../assets/logo-home.png" />
     </router-link>
@@ -44,7 +44,7 @@ const focused = () => {
 </template>
 
 <style scoped>
-.navbar {
+.navbar-search {
   position: fixed;
   left: 0;
   top: 0;

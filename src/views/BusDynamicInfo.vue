@@ -1,5 +1,9 @@
+<script setup>
+import NavbarRoute from "../components/NavbarRoute.vue";
+</script>
+
 <template>
-    <div class="bus-dynamic-info">
-        <h1>This is an bus-dynamic-info page</h1>
-    </div>
+  <div class="bus-dynamic-info">
+    <NavbarRoute />
+  </div>
 </template>
