@@ -1,9 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
+const store = useStore();
 const router = useRouter();
-const active = ref('left');
+const lastStop = computed(() => store.getters.lastStop);
+const active = ref('coming');
 </script>
 
 <template>
@@ -17,15 +20,15 @@ const active = ref('left');
       </router-link>
     </div>
     <div class="route-bar">
-      <div class="stop" @click="active = 'left'">
+      <div class="stop" @click="active = 'coming'">
         往
-        <span class="text">劍潭捷運站</span>
+        <span class="text">{{ lastStop.come }}</span>
       </div>
-      <div class="stop" @click="active = 'right'">
+      <div class="stop" @click="active = 'backing'">
         往
-        <span class="text">台北海大</span>
+        <span class="text">{{ lastStop.back }}</span>
       </div>
-      <div class="active" :style="{ left: active === 'left' ? 0 : '50%' }"></div>
+      <div class="active" :style="{ left: active === 'coming' ? 0 : '50%' }"></div>
     </div>
   </div>
 </template>

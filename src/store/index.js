@@ -7,7 +7,8 @@ export default createStore({
     search: '',
     searchCounty: '',
     busRoutes: [],
-    routeStops: {}
+    routeStops: {},
+    lastStop: {}
   },
   getters: {
     search(state) {
@@ -21,6 +22,9 @@ export default createStore({
     },
     routeStops(state) {
       return state.routeStops;
+    },
+    lastStop(state) {
+      return state.lastStop;
     }
   },
   mutations: {
@@ -44,6 +48,9 @@ export default createStore({
     },
     updateRouteStops(state, payload) {
       state.routeStops = payload;
+    },
+    updateLastStop(state, payload) {
+      state.lastStop = payload;
     },
   },
   actions: {
@@ -162,9 +169,12 @@ export default createStore({
             backIndex !== -1 && (backStops[backIndex].accessible = true);
           }
 
-          console.log({ comeStops, backStops });
-
           commit("updateRouteStops", { comeStops, backStops });
+
+          // Last stop
+          const comeLastStop = comeStopsData.pop().StopName.Zh_tw;
+          const backLastStop = backStopsData.pop().StopName.Zh_tw;
+          commit("updateLastStop", { come: comeLastStop, back: backLastStop });
         })
         .catch((error) => {
           console.log(error);
