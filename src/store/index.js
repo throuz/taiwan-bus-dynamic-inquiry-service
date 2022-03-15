@@ -6,7 +6,8 @@ export default createStore({
   state: {
     search: '',
     searchCounty: '',
-    busRoutes: []
+    busRoutes: [],
+    routeStops: {}
   },
   getters: {
     search(state) {
@@ -17,6 +18,9 @@ export default createStore({
     },
     busRoutes(state) {
       return state.busRoutes;
+    },
+    routeStops(state) {
+      return state.routeStops;
     }
   },
   mutations: {
@@ -38,6 +42,9 @@ export default createStore({
     updateBusRoutes(state, payload) {
       state.busRoutes = payload;
     },
+    updateRouteStops(state, payload) {
+      state.routeStops = payload;
+    },
   },
   actions: {
     asyncUpdateBusRoutes({ commit, state }) {
@@ -55,6 +62,112 @@ export default createStore({
           console.log(error);
         });
     },
+    asyncUpdateRouteStops({ commit, state }, payload) {
+      const getDisplayStopOfRoute = () => {
+        return axios.get(`DisplayStopOfRoute/City/${TWtoEN(state.searchCounty)}/${payload}`, {
+          params: {
+            $select: 'Stops',
+            $filter: `RouteName/Zh_tw eq '${payload}'`,
+            $format: 'JSON'
+          }
+        });
+      }
+
+      const getEstimatedTimeOfArrival = () => {
+        return axios.get(`EstimatedTimeOfArrival/City/${TWtoEN(state.searchCounty)}/${payload}`, {
+          params: {
+            $select: 'StopName',
+            $filter: `RouteName/Zh_tw eq '${payload}'`,
+            $format: 'JSON'
+          }
+        });
+      }
+
+      const getRealTimeNearStop = () => {
+        return axios.get(`RealTimeNearStop/City/${TWtoEN(state.searchCounty)}/${payload}`, {
+          params: {
+            $select: 'PlateNumb,StopName',
+            $filter: `RouteName/Zh_tw eq '${payload}'`,
+            $format: 'JSON'
+          }
+        });
+      }
+
+      const getVehicle = () => {
+        return axios.get(`Vehicle/City/${TWtoEN(state.searchCounty)}`, {
+          params: {
+            $filter: `VehicleType eq '1'`,
+            $format: 'JSON'
+          }
+        });
+      }
+
+      Promise.all([getDisplayStopOfRoute(), getEstimatedTimeOfArrival(), getRealTimeNearStop(), getVehicle()])
+        .then((results) => {
+          const displayStopOfRoute = results[0].data;
+          const estimatedTimeOfArrival = results[1].data;
+          const realTimeNearStop = results[2].data;
+          const accessibleBuses = results[3].data;
+
+          const comeStopsData = displayStopOfRoute.find(item => item.Direction === 0).Stops;
+          const backStopsData = displayStopOfRoute.find(item => item.Direction === 1).Stops;
+          const comeEstimateData = estimatedTimeOfArrival.filter(item => item.Direction === 0);
+          const backEstimateData = estimatedTimeOfArrival.filter(item => item.Direction === 1);
+          const comeRealTimeData = realTimeNearStop.filter(item => item.Direction === 0);
+          const backRealTimeData = realTimeNearStop.filter(item => item.Direction === 1);
+
+          const stopDataStructure = {
+            estimate: 0,
+            name: '',
+            accessible: false,
+            plateNumber: ''
+          };
+
+          const comeStops = new Array(comeStopsData.length).fill().map(() => ({ ...stopDataStructure }));
+          const backStops = new Array(backStopsData.length).fill().map(() => ({ ...stopDataStructure }));
+
+          // name
+          for (let i = 0; i < comeStopsData.length; i++) {
+            comeStops[i].name = comeStopsData[i].StopName.Zh_tw;
+          }
+          for (let i = 0; i < backStopsData.length; i++) {
+            backStops[i].name = backStopsData[i].StopName.Zh_tw;
+          }
+
+          // estimate
+          for (const { EstimateTime, StopName: { Zh_tw } } of comeEstimateData) {
+            const index = comeStops.map(stop => stop.name).indexOf(Zh_tw);
+            comeStops[index].estimate = EstimateTime;
+          }
+          for (const { EstimateTime, StopName: { Zh_tw } } of backEstimateData) {
+            const index = backStops.map(stop => stop.name).indexOf(Zh_tw);
+            backStops[index].estimate = EstimateTime;
+          }
+
+          // plateNumber
+          for (const { PlateNumb, StopName: { Zh_tw } } of comeRealTimeData) {
+            const index = comeStops.map(stop => stop.name).indexOf(Zh_tw);
+            comeStops[index].plateNumber = PlateNumb;
+          }
+          for (const { PlateNumb, StopName: { Zh_tw } } of backRealTimeData) {
+            const index = backStops.map(stop => stop.name).indexOf(Zh_tw);
+            backStops[index].plateNumber = PlateNumb;
+          }
+
+          // accessible
+          for (const { PlateNumb } of accessibleBuses) {
+            const comeIndex = comeStops.map(stop => stop.plateNumber).indexOf(PlateNumb);
+            comeIndex !== -1 && (comeStops[comeIndex].accessible = true);
+            const backIndex = backStops.map(stop => stop.plateNumber).indexOf(PlateNumb);
+            backIndex !== -1 && (backStops[backIndex].accessible = true);
+          }
+
+          commit("updateRouteStops", { comeStops, backStops });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   },
   modules: {},
 });
