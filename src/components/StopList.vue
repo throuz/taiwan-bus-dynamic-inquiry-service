@@ -1,9 +1,10 @@
 <script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-
-const store = useStore();
-const routeStops = computed(() => store.getters.routeStops);
+defineProps({
+  stops: {
+    type: Array,
+    default: () => []
+  }
+})
 
 const stopState = estimate => {
   let tw = '';
@@ -27,10 +28,7 @@ const stopState = estimate => {
 <template>
   <div class="stop-list">
     <div class="seconds-ago blue">*於3秒前更新</div>
-    <div
-      v-for="{ estimate, name, accessible, plateNumber } in routeStops.comeStops"
-      class="stop-wrap"
-    >
+    <div v-for="{ estimate, name, accessible, plateNumber } in stops" class="stop-wrap">
       <div :class="['stop-state', 'blue', stopState(estimate).en]">{{ stopState(estimate).tw }}</div>
       <div :class="['stop-name', stopState(estimate).en === 'coming' && 'blue']">{{ name }}</div>
       <div class="car-info blue">

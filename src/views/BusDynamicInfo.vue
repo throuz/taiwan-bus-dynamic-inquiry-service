@@ -1,12 +1,19 @@
 <script setup>
+import { ref, computed, provide } from 'vue'
+import { useStore } from 'vuex';
 import NavbarRoute from "../components/NavbarRoute.vue";
 import StopList from "../components/StopList.vue";
+
+const store = useStore();
+const routeStops = computed(() => store.getters.routeStops);
+const status = ref('coming');
+provide('status', status);
 </script>
 
 <template>
   <div class="bus-dynamic-info">
     <NavbarRoute />
-    <StopList />
+    <StopList :stops="status === 'coming' ? routeStops.comeStops : routeStops.backStops" />
   </div>
 </template>
 

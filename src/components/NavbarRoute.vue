@@ -1,12 +1,12 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed, inject } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
 const lastStop = computed(() => store.getters.lastStop);
-const active = ref('coming');
+const status = inject('status');
 </script>
 
 <template>
@@ -20,15 +20,15 @@ const active = ref('coming');
       </router-link>
     </div>
     <div class="route-bar">
-      <div class="stop" @click="active = 'coming'">
+      <div class="stop" @click="status = 'coming'">
         往
         <span class="text">{{ lastStop.come }}</span>
       </div>
-      <div class="stop" @click="active = 'backing'">
+      <div class="stop" @click="status = 'backing'">
         往
         <span class="text">{{ lastStop.back }}</span>
       </div>
-      <div class="active" :style="{ left: active === 'coming' ? 0 : '50%' }"></div>
+      <div class="active" :style="{ left: status === 'coming' ? 0 : '50%' }"></div>
     </div>
   </div>
 </template>
