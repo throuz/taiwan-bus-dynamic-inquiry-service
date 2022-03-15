@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, provide } from 'vue'
+import { ref, computed, provide, onUnmounted } from 'vue'
 import { useStore } from 'vuex';
 import NavbarRoute from "../components/NavbarRoute.vue";
 import StopList from "../components/StopList.vue";
@@ -8,6 +8,11 @@ const store = useStore();
 const routeStops = computed(() => store.getters.routeStops);
 const status = ref('coming');
 provide('status', status);
+
+onUnmounted(() => {
+  store.commit("updateRouteStops", {});
+  store.commit("updateLastStop", {});
+})
 </script>
 
 <template>
