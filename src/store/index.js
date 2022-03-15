@@ -6,9 +6,9 @@ export default createStore({
   state: {
     search: '',
     searchCounty: '',
-    busRoutes: [],
-    routeStops: {},
-    lastStop: {}
+    busRoutes: { status: 'idle', data: [] },
+    routeStops: { status: 'idle', data: {} },
+    lastStop: { status: 'idle', data: {} }
   },
   getters: {
     search(state) {
@@ -55,6 +55,7 @@ export default createStore({
   },
   actions: {
     asyncUpdateBusRoutes({ commit, state }) {
+      commit("updateBusRoutes", { status: 'pending', data: [] });
       axios
         .get(`Route/City/${TWtoEN(state.searchCounty)}?$format=JSON`)
         .then((response) => {
@@ -63,13 +64,17 @@ export default createStore({
             const { RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh } = routeData;
             routes.push({ name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh })
           }
-          commit("updateBusRoutes", routes);
+          commit("updateBusRoutes", { status: 'success', data: routes });
         })
         .catch((error) => {
           console.log(error);
+          commit("updateBusRoutes", { status: 'error', data: [] });
         });
     },
     asyncUpdateRouteStops({ commit, state }, payload) {
+      commit("updateRouteStops", { status: 'pending', data: {} });
+      commit("updateLastStop", { status: 'pending', data: {} });
+
       const getDisplayStopOfRoute = () => {
         return axios.get(`DisplayStopOfRoute/City/${TWtoEN(state.searchCounty)}/${payload}`, {
           params: {
@@ -169,15 +174,17 @@ export default createStore({
             backIndex !== -1 && (backStops[backIndex].accessible = true);
           }
 
-          commit("updateRouteStops", { comeStops, backStops });
+          commit("updateRouteStops", { status: 'success', data: { comeStops, backStops } });
 
           // Last stop
           const comeLastStop = comeStopsData.pop().StopName.Zh_tw;
           const backLastStop = backStopsData.pop().StopName.Zh_tw;
-          commit("updateLastStop", { come: comeLastStop, back: backLastStop });
+          commit("updateLastStop", { status: 'success', data: { come: comeLastStop, back: backLastStop } });
         })
         .catch((error) => {
           console.log(error);
+          commit("updateRouteStops", { status: 'error', data: {} });
+          commit("updateLastStop", { status: 'error', data: {} });
         });
     }
   },

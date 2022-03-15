@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
-const lastStop = computed(() => store.getters.lastStop);
+const lastStop = computed(() => store.getters.lastStop.data);
 const status = inject('status');
 </script>
 

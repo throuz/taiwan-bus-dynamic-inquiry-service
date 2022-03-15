@@ -1,5 +1,5 @@
 <script setup>
-import { ref, provide, onUnmounted } from 'vue';
+import { ref, computed, provide, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import NavbarSearch from "../components/NavbarSearch.vue";
 import RouteList from "../components/RouteList.vue";
@@ -7,6 +7,7 @@ import KeyboardWrap from "../components/KeyboardWrap.vue";
 import Loading from "../components/Loading.vue";
 
 const store = useStore();
+const busRoutesStatus = computed(() => store.getters.busRoutes.status);
 const searchRef = ref(null);
 const distance = ref(0);
 provide('searchRef', searchRef);
@@ -15,15 +16,15 @@ provide('distance', distance);
 onUnmounted(() => {
   store.commit('clearSearch');
   store.commit('updateSearchCounty', '');
-  store.commit('updateBusRoutes', []);
+  store.commit('updateBusRoutes', { status: 'idle', data: [] });
 })
 </script>
 
 <template>
   <div class="inquire-bus">
     <NavbarSearch />
-    <RouteList />
-    <Loading />
+    <Loading v-if="busRoutesStatus === 'pending'" />
+    <RouteList v-else />
     <KeyboardWrap />
   </div>
 </template>

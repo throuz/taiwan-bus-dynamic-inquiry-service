@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 const store = useStore();
 const router = useRouter();
 const searchCounty = computed(() => store.getters.searchCounty);
-const busRoutes = computed(() => store.getters.busRoutes);
+const busRoutes = computed(() => store.getters.busRoutes.data);
 const search = computed(() => store.getters.search);
 const routes = computed(() => busRoutes.value.filter(route => route.name.includes(search.value)));
 
