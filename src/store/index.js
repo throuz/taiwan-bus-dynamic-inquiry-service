@@ -109,15 +109,15 @@ export default createStore({
           const realTimeNearStop = results[2].data;
           const accessibleBuses = results[3].data;
 
-          const comeStopsData = displayStopOfRoute.find(item => item.Direction === 0).Stops;
-          const backStopsData = displayStopOfRoute.find(item => item.Direction === 1).Stops;
+          const comeStopsData = displayStopOfRoute.find(item => item.Direction === 0)?.Stops ?? [];
+          const backStopsData = displayStopOfRoute.find(item => item.Direction === 1)?.Stops ?? [];
           const comeEstimateData = estimatedTimeOfArrival.filter(item => item.Direction === 0);
           const backEstimateData = estimatedTimeOfArrival.filter(item => item.Direction === 1);
           const comeRealTimeData = realTimeNearStop.filter(item => item.Direction === 0);
           const backRealTimeData = realTimeNearStop.filter(item => item.Direction === 1);
 
           const stopDataStructure = {
-            estimate: 0,
+            estimate: null,
             name: '',
             accessible: false,
             plateNumber: ''
@@ -137,11 +137,11 @@ export default createStore({
           // estimate
           for (const { EstimateTime, StopName: { Zh_tw } } of comeEstimateData) {
             const index = comeStops.map(stop => stop.name).indexOf(Zh_tw);
-            comeStops[index].estimate = EstimateTime;
+            EstimateTime && (comeStops[index].estimate = EstimateTime - 30);
           }
           for (const { EstimateTime, StopName: { Zh_tw } } of backEstimateData) {
             const index = backStops.map(stop => stop.name).indexOf(Zh_tw);
-            backStops[index].estimate = EstimateTime;
+            EstimateTime && (backStops[index].estimate = EstimateTime - 30);
           }
 
           // plateNumber
@@ -161,6 +161,8 @@ export default createStore({
             const backIndex = backStops.map(stop => stop.plateNumber).indexOf(PlateNumb);
             backIndex !== -1 && (backStops[backIndex].accessible = true);
           }
+
+          console.log({ comeStops, backStops });
 
           commit("updateRouteStops", { comeStops, backStops });
         })

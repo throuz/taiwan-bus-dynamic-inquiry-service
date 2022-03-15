@@ -1,146 +1,42 @@
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-const stops = ref([
-  {
-    state: 'no-dep',
-    name: '小北街',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: 'pit',
-    name: '士林區農會',
-    wheelchair: true,
-    plate: '619-U3'
-  },
-  {
-    state: '4分',
-    name: '士林國中',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: '9分',
-    name: '社子市場',
-    wheelchair: false,
-    plate: '568-FR'
-  },
-  {
-    state: 'leave',
-    name: '社子派出所',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: 'pit',
-    name: '士林區農會',
-    wheelchair: true,
-    plate: '619-U3'
-  },
-  {
-    state: '4分',
-    name: '士林國中',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: '9分',
-    name: '社子市場',
-    wheelchair: false,
-    plate: '568-FR'
-  },
-  {
-    state: 'leave',
-    name: '社子派出所',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: 'pit',
-    name: '士林區農會',
-    wheelchair: true,
-    plate: '619-U3'
-  },
-  {
-    state: '4分',
-    name: '士林國中',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: '9分',
-    name: '社子市場',
-    wheelchair: false,
-    plate: '568-FR'
-  },
-  {
-    state: 'leave',
-    name: '社子派出所',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: 'pit',
-    name: '士林區農會',
-    wheelchair: true,
-    plate: '619-U3'
-  },
-  {
-    state: '4分',
-    name: '士林國中',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: '9分',
-    name: '社子市場',
-    wheelchair: false,
-    plate: '568-FR'
-  },
-  {
-    state: 'leave',
-    name: '社子派出所',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: 'pit',
-    name: '士林區農會',
-    wheelchair: true,
-    plate: '619-U3'
-  },
-  {
-    state: '4分',
-    name: '士林國中',
-    wheelchair: false,
-    plate: ''
-  },
-  {
-    state: '9分',
-    name: '社子市場',
-    wheelchair: false,
-    plate: '568-FR'
-  },
-  {
-    state: 'leave',
-    name: '社子派出所',
-    wheelchair: false,
-    plate: ''
+const store = useStore();
+const routeStops = computed(() => store.getters.routeStops);
+
+const stopState = estimate => {
+  let tw = '';
+  let en = '';
+  if (!estimate) {
+    tw = '未發車';
+    en = 'not-depart';
+  } else if (estimate < 0) {
+    tw = '進站中';
+    en = 'coming';
+  } else if (estimate < 60) {
+    tw = '離站中';
+    en = 'leaving';
+  } else {
+    tw = `${Math.round(estimate / 60)}分`;
   }
-]);
+  return { tw, en };
+};
 </script>
 
 <template>
   <div class="stop-list">
     <div class="seconds-ago blue">*於3秒前更新</div>
-    <div v-for="stop in stops" class="stop-wrap">
-      <div :class="['stop-state', 'blue', stop.state]">{{ stop.state }}</div>
-      <div :class="['stop-name', stop.state === 'pit' && 'blue']">{{ stop.name }}</div>
+    <div
+      v-for="{ estimate, name, accessible, plateNumber } in routeStops.comeStops"
+      class="stop-wrap"
+    >
+      <div :class="['stop-state', 'blue', stopState(estimate).en]">{{ stopState(estimate).tw }}</div>
+      <div :class="['stop-name', stopState(estimate).en === 'coming' && 'blue']">{{ name }}</div>
       <div class="car-info blue">
-        <font-awesome-icon v-if="stop.wheelchair" icon="wheelchair" class="wheelchair" />
-        <span v-if="stop.plate" class="font-roboto">{{ stop.plate }}</span>
-        <div :class="['stop-state-circle', stop.state === 'pit' && 'bg-blue']"></div>
+        <font-awesome-icon v-if="accessible" icon="wheelchair" class="wheelchair" />
+        <span v-if="plateNumber" class="font-roboto">{{ plateNumber }}</span>
+        <div :class="['stop-state-circle', stopState(estimate).en === 'coming' && 'bg-blue']"></div>
       </div>
     </div>
     <div class="stop-line"></div>
@@ -172,17 +68,17 @@ const stops = ref([
   border-radius: 12px;
   text-align: center;
 }
-.no-dep {
+.not-depart {
   border: none;
   box-shadow: none;
   color: #414242;
 }
-.pit {
+.coming {
   box-shadow: none;
   background: #1cc8ee;
   color: #131414;
 }
-.leave {
+.leaving {
   border: none;
   box-shadow: none;
   background: #414242;
