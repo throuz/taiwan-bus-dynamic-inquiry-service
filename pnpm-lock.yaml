@@ -11,6 +11,7 @@ specifiers:
   vite: ^2.8.0
   vue: ^3.2.25
   vue-router: '4'
+  vue3-lottie: ^2.1.0
   vuex: ^4.0.2
 
 dependencies:
@@ -22,6 +23,7 @@ dependencies:
   jssha: 3.2.0
   vue: 3.2.31
   vue-router: 4.0.13_vue@3.2.31
+  vue3-lottie: 2.1.0_vue@3.2.31
   vuex: 4.0.2_vue@3.2.31
 
 devDependencies:
@@ -437,6 +439,10 @@ packages:
     resolution: {integrity: sha512-QuruyBENDWdN4tZwJbQq7/eAK85FqrI4oDbXjy5IBhYD+2pTJyBUWZe8ctWaCkrV0gy6AaelgOZZBMeswEa/6Q==}
     dev: false
 
+  /lottie-web/5.9.1:
+    resolution: {integrity: sha512-3uKtU6BhIK6ZRCE/QyiXq/KuRvPeEAz/VFwqd99jPbpgFY9gHLw2krqvcuCFGepeW94BipS/B3TqIfTc9pUeZg==}
+    dev: false
+
   /magic-string/0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
     dependencies:
@@ -539,6 +545,16 @@ packages:
       '@vue/runtime-dom': 3.2.31
       '@vue/server-renderer': 3.2.31_vue@3.2.31
       '@vue/shared': 3.2.31
+    dev: false
+
+  /vue3-lottie/2.1.0_vue@3.2.31:
+    resolution: {integrity: sha512-j9LRAdCoav437+dZtsvCEKekqzE86QrTVskdVuUiY4/gfrpOnSURGc3f4/WebMi2jcx08cMykTc6cYZiR6xgXA==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      vue: ^3.2
+    dependencies:
+      lottie-web: 5.9.1
+      vue: 3.2.31
     dev: false
 
   /vuex/4.0.2_vue@3.2.31:

@@ -4,6 +4,7 @@ import { useStore } from 'vuex';
 import NavbarSearch from "../components/NavbarSearch.vue";
 import RouteList from "../components/RouteList.vue";
 import KeyboardWrap from "../components/KeyboardWrap.vue";
+import Loading from "../components/Loading.vue";
 
 const store = useStore();
 const searchRef = ref(null);
@@ -22,6 +23,7 @@ onUnmounted(() => {
   <div class="inquire-bus">
     <NavbarSearch />
     <RouteList />
+    <Loading />
     <KeyboardWrap />
   </div>
 </template>
