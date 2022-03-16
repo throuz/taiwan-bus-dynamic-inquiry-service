@@ -4,7 +4,7 @@ import { useStore } from 'vuex';
 import NavbarSearch from "../components/NavbarSearch.vue";
 import RouteList from "../components/RouteList.vue";
 import KeyboardWrap from "../components/KeyboardWrap.vue";
-import Loading from "../components/Loading.vue";
+import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();
 const busRoutesStatus = computed(() => store.getters.busRoutes.status);
@@ -23,8 +23,9 @@ onUnmounted(() => {
 <template>
   <div class="inquire-bus">
     <NavbarSearch />
-    <Loading v-if="busRoutesStatus === 'pending'" />
-    <RouteList v-else />
+    <LoadWrap :status="busRoutesStatus">
+      <RouteList />
+    </LoadWrap>
     <KeyboardWrap />
   </div>
 </template>

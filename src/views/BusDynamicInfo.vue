@@ -4,15 +4,16 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import NavbarRoute from "../components/NavbarRoute.vue";
 import StopList from "../components/StopList.vue";
-import Loading from "../components/Loading.vue";
+import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();
 const router = useRouter();
 const routeStops = computed(() => store.getters.routeStops.data);
 const routeStopsStatus = computed(() => store.getters.routeStops.status);
-routeStopsStatus.value === 'idle' && router.push('/');
 const status = ref('coming');
 provide('status', status);
+
+routeStopsStatus.value === 'idle' && router.push('/');
 
 onUnmounted(() => {
   store.commit("updateRouteStops", { status: 'idle', data: {} });
@@ -23,8 +24,9 @@ onUnmounted(() => {
 <template>
   <div class="bus-dynamic-info">
     <NavbarRoute />
-    <Loading v-if="routeStopsStatus === 'pending'" />
-    <StopList v-else :stops="status === 'coming' ? routeStops.comeStops : routeStops.backStops" />
+    <LoadWrap :status="routeStopsStatus">
+      <StopList :stops="status === 'coming' ? routeStops.comeStops : routeStops.backStops" />
+    </LoadWrap>
   </div>
 </template>
 
