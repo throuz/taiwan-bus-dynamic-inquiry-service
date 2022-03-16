@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, provide, onUnmounted } from 'vue'
+import { ref, computed, provide, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import NavbarRoute from "../components/NavbarRoute.vue";

@@ -1,10 +1,25 @@
 <script setup>
+import { ref, onUnmounted } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
 defineProps({
   stops: {
     type: Array,
     default: () => []
   }
 })
+
+const second = ref(0);
+const counting = setInterval(() => {
+  if (second.value === 10) {
+    store.dispatch('asyncUpdateRouteStops');
+    second.value = 0
+  } else {
+    second.value++
+  }
+}, 1000);
 
 const stopState = estimate => {
   let tw = '';
@@ -23,11 +38,15 @@ const stopState = estimate => {
   }
   return { tw, en };
 };
+
+onUnmounted(() => {
+  clearInterval(counting);
+})
 </script>
 
 <template>
   <div class="stop-list">
-    <div class="seconds-ago blue">*於3秒前更新</div>
+    <div class="seconds-ago blue">*於{{ second }}秒前更新</div>
     <div v-for="{ estimate, name, accessible, plateNumber } in stops" class="stop-wrap">
       <div :class="['stop-state', 'blue', stopState(estimate).en]">{{ stopState(estimate).tw }}</div>
       <div :class="['stop-name', stopState(estimate).en === 'coming' && 'blue']">{{ name }}</div>
