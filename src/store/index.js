@@ -6,6 +6,7 @@ export default createStore({
   state: {
     search: '',
     searchCounty: '',
+    searchRoute: '',
     busRoutes: { status: 'idle', data: [] },
     routeStops: { status: 'idle', data: {} },
     lastStop: { status: 'idle', data: {} }
@@ -16,6 +17,9 @@ export default createStore({
     },
     searchCounty(state) {
       return state.searchCounty;
+    },
+    searchRoute(state) {
+      return state.searchRoute;
     },
     busRoutes(state) {
       return state.busRoutes;
@@ -42,6 +46,9 @@ export default createStore({
     },
     updateSearchCounty(state, payload) {
       state.searchCounty = payload;
+    },
+    updateSearchRoute(state, payload) {
+      state.searchRoute = payload;
     },
     updateBusRoutes(state, payload) {
       state.busRoutes = payload;
@@ -71,42 +78,42 @@ export default createStore({
           commit("updateBusRoutes", { status: 'error', data: [] });
         });
     },
-    asyncUpdateRouteStops({ commit, state }, payload) {
+    asyncUpdateRouteStops({ commit, state: { searchCounty, searchRoute } }) {
       commit("updateRouteStops", { status: 'pending', data: {} });
       commit("updateLastStop", { status: 'pending', data: {} });
 
       const getDisplayStopOfRoute = () => {
-        return axios.get(`DisplayStopOfRoute/City/${TWtoEN(state.searchCounty)}/${payload}`, {
+        return axios.get(`DisplayStopOfRoute/City/${TWtoEN(searchCounty)}/${searchRoute}`, {
           params: {
             $select: 'Stops',
-            $filter: `RouteName/Zh_tw eq '${payload}'`,
+            $filter: `RouteName/Zh_tw eq '${searchRoute}'`,
             $format: 'JSON'
           }
         });
       }
 
       const getEstimatedTimeOfArrival = () => {
-        return axios.get(`EstimatedTimeOfArrival/City/${TWtoEN(state.searchCounty)}/${payload}`, {
+        return axios.get(`EstimatedTimeOfArrival/City/${TWtoEN(searchCounty)}/${searchRoute}`, {
           params: {
             $select: 'StopName',
-            $filter: `RouteName/Zh_tw eq '${payload}'`,
+            $filter: `RouteName/Zh_tw eq '${searchRoute}'`,
             $format: 'JSON'
           }
         });
       }
 
       const getRealTimeNearStop = () => {
-        return axios.get(`RealTimeNearStop/City/${TWtoEN(state.searchCounty)}/${payload}`, {
+        return axios.get(`RealTimeNearStop/City/${TWtoEN(searchCounty)}/${searchRoute}`, {
           params: {
             $select: 'PlateNumb,StopName',
-            $filter: `RouteName/Zh_tw eq '${payload}'`,
+            $filter: `RouteName/Zh_tw eq '${searchRoute}'`,
             $format: 'JSON'
           }
         });
       }
 
       const getVehicle = () => {
-        return axios.get(`Vehicle/City/${TWtoEN(state.searchCounty)}`, {
+        return axios.get(`Vehicle/City/${TWtoEN(searchCounty)}`, {
           params: {
             $filter: `VehicleType eq '1'`,
             $format: 'JSON'

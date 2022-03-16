@@ -11,7 +11,8 @@ const search = computed(() => store.getters.search);
 const routes = computed(() => busRoutes.value.filter(route => route.name.includes(search.value)));
 
 const routeClick = (routeName) => {
-  store.dispatch('asyncUpdateRouteStops', routeName);
+  store.commit('updateSearchRoute', routeName);
+  store.dispatch('asyncUpdateRouteStops');
   router.push('/bus-dynamic-info');
 }
 </script>
