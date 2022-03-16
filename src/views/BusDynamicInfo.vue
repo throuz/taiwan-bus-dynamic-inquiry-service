@@ -1,13 +1,16 @@
 <script setup>
 import { ref, computed, provide, onUnmounted } from 'vue'
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import NavbarRoute from "../components/NavbarRoute.vue";
 import StopList from "../components/StopList.vue";
 import Loading from "../components/Loading.vue";
 
 const store = useStore();
+const router = useRouter();
 const routeStops = computed(() => store.getters.routeStops.data);
 const routeStopsStatus = computed(() => store.getters.routeStops.status);
+routeStopsStatus.value === 'idle' && router.push('/');
 const status = ref('coming');
 provide('status', status);
 
