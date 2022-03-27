@@ -21,20 +21,20 @@ const counting = setInterval(() => {
   }
 }, 1000);
 
-const stopState = estimate => {
+const stopState = state => {
   let tw = '';
   let en = '';
-  if (!estimate) {
+  if (!state) {
     tw = '未發車';
     en = 'not-depart';
-  } else if (estimate < 0) {
+  } else if (state === '進站中') {
     tw = '進站中';
     en = 'coming';
-  } else if (estimate < 60) {
+  } else if (state === '離站中') {
     tw = '離站中';
     en = 'leaving';
   } else {
-    tw = `${Math.round(estimate / 60)}分`;
+    tw = `${Math.round(state / 60)}分`;
   }
   return { tw, en };
 };
@@ -47,13 +47,13 @@ onUnmounted(() => {
 <template>
   <div class="stop-list">
     <div class="seconds-ago blue">*於{{ second }}秒前更新</div>
-    <div v-for="{ estimate, name, accessible, plateNumber } in stops" class="stop-wrap">
-      <div :class="['stop-state', 'blue', stopState(estimate).en]">{{ stopState(estimate).tw }}</div>
-      <div :class="['stop-name', stopState(estimate).en === 'coming' && 'blue']">{{ name }}</div>
+    <div v-for="{ state, name, accessible, plateNumber } in stops" class="stop-wrap">
+      <div :class="['stop-state', 'blue', stopState(state).en]">{{ stopState(state).tw }}</div>
+      <div :class="['stop-name', stopState(state).en === 'coming' && 'blue']">{{ name }}</div>
       <div class="car-info blue">
         <font-awesome-icon v-if="accessible" icon="wheelchair" class="wheelchair" />
         <span v-if="plateNumber" class="font-roboto">{{ plateNumber }}</span>
-        <div :class="['stop-state-circle', stopState(estimate).en === 'coming' && 'bg-blue']"></div>
+        <div :class="['stop-state-circle', stopState(state).en === 'coming' && 'bg-blue']"></div>
       </div>
     </div>
     <div class="stop-line"></div>
