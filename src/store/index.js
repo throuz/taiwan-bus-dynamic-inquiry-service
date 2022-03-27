@@ -54,10 +54,15 @@ export default createStore({
     }
   },
   actions: {
-    asyncUpdateBusRoutes({ commit, state }) {
+    asyncUpdateBusRoutes({ commit, state: { searchCounty } }) {
       commit("updateBusRoutes", { status: 'pending', data: [] });
       axios
-        .get(`Route/City/${TWtoEN(state.searchCounty)}?$format=JSON`)
+        .get(`Route/City/${TWtoEN(searchCounty)}`, {
+          params: {
+            $select: 'RouteID,RouteName,DepartureStopNameZh,DestinationStopNameZh',
+            $format: 'JSON'
+          }
+        })
         .then((response) => {
           const routes = [];
           for (const routeData of response.data) {
