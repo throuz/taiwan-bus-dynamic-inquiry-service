@@ -152,22 +152,22 @@ export default createStore({
 
           // state(EstimateTime)
           for (const { EstimateTime, StopName: { Zh_tw } } of comeEstimateData) {
-            const index = comeStops.map(stop => stop.name).indexOf(Zh_tw);
+            const index = comeStops.findIndex(stop => stop.name === Zh_tw);
             EstimateTime && (comeStops[index].state = EstimateTime);
           }
           for (const { EstimateTime, StopName: { Zh_tw } } of backEstimateData) {
-            const index = backStops.map(stop => stop.name).indexOf(Zh_tw);
+            const index = backStops.findIndex(stop => stop.name === Zh_tw);
             EstimateTime && (backStops[index].state = EstimateTime);
           }
 
           // plateNumber & state(A2EventType)
           for (const { PlateNumb, StopName: { Zh_tw }, A2EventType } of comeRealTimeData) {
-            const index = comeStops.map(stop => stop.name).indexOf(Zh_tw);
+            const index = comeStops.findIndex(stop => stop.name === Zh_tw);
             comeStops[index].plateNumber = PlateNumb;
             comeStops[index].state = A2EventType ? '進站中' : '離站中';
           }
           for (const { PlateNumb, StopName: { Zh_tw }, A2EventType } of backRealTimeData) {
-            const index = backStops.map(stop => stop.name).indexOf(Zh_tw);
+            const index = backStops.findIndex(stop => stop.name === Zh_tw);
             backStops[index].plateNumber = PlateNumb;
             backStops[index].state = A2EventType ? '進站中' : '離站中';
           }
