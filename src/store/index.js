@@ -1,5 +1,5 @@
-import { createStore } from "vuex";
-import axios from "../axios";
+import { createStore } from 'vuex';
+import axios from '../axios';
 
 export default createStore({
   state: {
@@ -54,7 +54,7 @@ export default createStore({
   },
   actions: {
     asyncUpdateBusRoutes({ commit, state: { searchCity } }) {
-      commit("updateBusRoutes", { status: 'pending', data: [] });
+      commit('updateBusRoutes', { status: 'pending', data: [] });
       axios
         .get(`Route/City/${searchCity}`, {
           params: {
@@ -68,18 +68,20 @@ export default createStore({
             const { RouteID, RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh } = routeData;
             routes.push({ id: RouteID, name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh })
           }
-          commit("updateBusRoutes", { status: 'success', data: routes });
+          commit('updateBusRoutes', { status: 'success', data: routes });
         })
         .catch((error) => {
           console.log(error);
-          commit("updateBusRoutes", { status: 'error', data: [] });
+          commit('updateBusRoutes', { status: 'error', data: [] });
         });
     },
     asyncUpdateRouteStops({ commit, state: { searchCity, routeInfo: { id, name } } }) {
-      commit("updateRouteStops", { status: 'pending', data: {} });
+      commit('updateRouteStops', { status: 'pending', data: {} });
 
       const getStopOfRoute = () => {
-        return axios.get(`StopOfRoute/City/${searchCity}/${name}`, {
+        const cityFilter = ['Taipei', 'Tainan', 'NewTaipei', 'Taoyuan', 'Taichung'];
+        const partialURL = cityFilter.includes(searchCity) ? 'Display' : '';
+        return axios.get(`${partialURL}StopOfRoute/City/${searchCity}/${name}`, {
           params: {
             $select: 'Stops',
             $filter: `RouteID eq '${id}'`,
@@ -89,7 +91,9 @@ export default createStore({
       }
 
       const getEstimatedTimeOfArrival = () => {
-        return axios.get(`EstimatedTimeOfArrival/City/${searchCity}/${name}`, {
+        const cityFilter = ['Hsinchu', 'HsinchuCounty', 'MiaoliCounty', 'ChanghuaCounty', 'NantouCounty', 'YunlinCounty', 'ChiayiCounty', 'Chiayi', 'PingtungCounty', 'YilanCounty', 'HualienCounty', 'TaitungCounty', 'PenghuCounty', 'Keelung'];
+        const partialURL = cityFilter.includes(searchCity) ? '/Streaming' : '';
+        return axios.get(`EstimatedTimeOfArrival${partialURL}/City/${searchCity}/${name}`, {
           params: {
             $select: 'StopName',
             $filter: `RouteID eq '${id}'`,
@@ -99,7 +103,9 @@ export default createStore({
       }
 
       const getRealTimeNearStop = () => {
-        return axios.get(`RealTimeNearStop/City/${searchCity}/${name}`, {
+        const cityFilter = ['Hsinchu', 'HsinchuCounty', 'MiaoliCounty', 'ChanghuaCounty', 'NantouCounty', 'YunlinCounty', 'ChiayiCounty', 'Chiayi', 'PingtungCounty', 'YilanCounty', 'HualienCounty', 'TaitungCounty', 'PenghuCounty', 'Keelung'];
+        const partialURL = cityFilter.includes(searchCity) ? '/Streaming' : '';
+        return axios.get(`RealTimeNearStop${partialURL}/City/${searchCity}/${name}`, {
           params: {
             $select: 'PlateNumb,StopName',
             $filter: `RouteID eq '${id}'`,
@@ -179,11 +185,11 @@ export default createStore({
             backIndex !== -1 && (backStops[backIndex].accessible = true);
           }
 
-          commit("updateRouteStops", { status: 'success', data: { comeStops, backStops } });
+          commit('updateRouteStops', { status: 'success', data: { comeStops, backStops } });
         })
         .catch((error) => {
           console.log(error);
-          commit("updateRouteStops", { status: 'error', data: {} });
+          commit('updateRouteStops', { status: 'error', data: {} });
         });
     }
   },
