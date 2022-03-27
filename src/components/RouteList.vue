@@ -10,8 +10,8 @@ const busRoutes = computed(() => store.getters.busRoutes.data);
 const search = computed(() => store.getters.search);
 const routes = computed(() => busRoutes.value.filter(route => route.name.includes(search.value)));
 
-const routeClick = (routeName) => {
-  store.commit('updateSearchRoute', routeName);
+const routeClick = route => {
+  store.commit('updateRouteInfo', route);
   store.dispatch('asyncUpdateRouteStops');
   router.push('/bus-dynamic-info');
 }
@@ -20,7 +20,7 @@ const routeClick = (routeName) => {
 <template>
   <div class="bus-list">
     <div class="county-name">{{ searchCounty ? searchCounty : '請先選擇縣市' }}</div>
-    <div v-for="route in routes" class="route-wrap" @click="routeClick(route.name)">
+    <div v-for="route in routes" class="route-wrap" @click="routeClick(route)">
       <div class="route-name font-roboto">{{ route.name }}</div>
       <div class="route-describe">
         <span class="text">{{ route.departure }}</span>

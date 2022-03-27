@@ -6,7 +6,7 @@ export default createStore({
   state: {
     search: '',
     searchCounty: '',
-    searchRoute: '',
+    routeInfo: {},
     busRoutes: { status: 'idle', data: [] },
     routeStops: { status: 'idle', data: {} },
     lastStop: { status: 'idle', data: {} }
@@ -18,8 +18,8 @@ export default createStore({
     searchCounty(state) {
       return state.searchCounty;
     },
-    searchRoute(state) {
-      return state.searchRoute;
+    routeInfo(state) {
+      return state.routeInfo;
     },
     busRoutes(state) {
       return state.busRoutes;
@@ -47,8 +47,8 @@ export default createStore({
     updateSearchCounty(state, payload) {
       state.searchCounty = payload;
     },
-    updateSearchRoute(state, payload) {
-      state.searchRoute = payload;
+    updateRouteInfo(state, payload) {
+      state.routeInfo = payload;
     },
     updateBusRoutes(state, payload) {
       state.busRoutes = payload;
@@ -68,8 +68,8 @@ export default createStore({
         .then((response) => {
           const routes = [];
           for (const routeData of response.data) {
-            const { RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh } = routeData;
-            routes.push({ name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh })
+            const { RouteID, RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh } = routeData;
+            routes.push({ id: RouteID, name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh })
           }
           commit("updateBusRoutes", { status: 'success', data: routes });
         })
@@ -78,35 +78,35 @@ export default createStore({
           commit("updateBusRoutes", { status: 'error', data: [] });
         });
     },
-    asyncUpdateRouteStops({ commit, state: { searchCounty, searchRoute } }) {
+    asyncUpdateRouteStops({ commit, state: { searchCounty, routeInfo: { id, name } } }) {
       commit("updateRouteStops", { status: 'pending', data: {} });
       commit("updateLastStop", { status: 'pending', data: {} });
 
-      const getDisplayStopOfRoute = () => {
-        return axios.get(`StopOfRoute/City/${TWtoEN(searchCounty)}/${searchRoute}`, {
+      const getStopOfRoute = () => {
+        return axios.get(`StopOfRoute/City/${TWtoEN(searchCounty)}/${name}`, {
           params: {
             $select: 'Stops',
-            $filter: `RouteName/Zh_tw eq '${searchRoute}'`,
+            $filter: `RouteID eq '${id}'`,
             $format: 'JSON'
           }
         });
       }
 
       const getEstimatedTimeOfArrival = () => {
-        return axios.get(`EstimatedTimeOfArrival/City/${TWtoEN(searchCounty)}/${searchRoute}`, {
+        return axios.get(`EstimatedTimeOfArrival/City/${TWtoEN(searchCounty)}/${name}`, {
           params: {
             $select: 'StopName',
-            $filter: `RouteName/Zh_tw eq '${searchRoute}'`,
+            $filter: `RouteID eq '${id}'`,
             $format: 'JSON'
           }
         });
       }
 
       const getRealTimeNearStop = () => {
-        return axios.get(`RealTimeNearStop/City/${TWtoEN(searchCounty)}/${searchRoute}`, {
+        return axios.get(`RealTimeNearStop/City/${TWtoEN(searchCounty)}/${name}`, {
           params: {
             $select: 'PlateNumb,StopName',
-            $filter: `RouteName/Zh_tw eq '${searchRoute}'`,
+            $filter: `RouteID eq '${id}'`,
             $format: 'JSON'
           }
         });
@@ -121,15 +121,15 @@ export default createStore({
         });
       }
 
-      Promise.all([getDisplayStopOfRoute(), getEstimatedTimeOfArrival(), getRealTimeNearStop(), getVehicle()])
+      Promise.all([getStopOfRoute(), getEstimatedTimeOfArrival(), getRealTimeNearStop(), getVehicle()])
         .then((results) => {
-          const displayStopOfRoute = results[0].data;
+          const stopOfRoute = results[0].data;
           const estimatedTimeOfArrival = results[1].data;
           const realTimeNearStop = results[2].data;
           const accessibleBuses = results[3].data;
 
-          const comeStopsData = displayStopOfRoute.find(item => item.Direction === 0)?.Stops ?? [];
-          const backStopsData = displayStopOfRoute.find(item => item.Direction === 1)?.Stops ?? [];
+          const comeStopsData = stopOfRoute.find(item => item.Direction === 0)?.Stops ?? [];
+          const backStopsData = stopOfRoute.find(item => item.Direction === 1)?.Stops ?? [];
           const comeEstimateData = estimatedTimeOfArrival.filter(item => item.Direction === 0);
           const backEstimateData = estimatedTimeOfArrival.filter(item => item.Direction === 1);
           const comeRealTimeData = realTimeNearStop.filter(item => item.Direction === 0);
