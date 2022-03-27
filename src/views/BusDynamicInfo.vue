@@ -17,7 +17,6 @@ routeStopsStatus.value === 'idle' && router.push('/');
 
 onUnmounted(() => {
   store.commit("updateRouteStops", { status: 'idle', data: {} });
-  store.commit("updateLastStop", { status: 'idle', data: {} });
 })
 </script>
 

@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
-const lastStop = computed(() => store.getters.lastStop.data);
+const routeInfo = computed(() => store.getters.routeInfo);
 const status = inject('status');
 </script>
 
@@ -22,11 +22,11 @@ const status = inject('status');
     <div class="route-bar">
       <div class="stop" @click="status = 'coming'">
         往
-        <span class="text">{{ lastStop.come }}</span>
+        <span class="text">{{ routeInfo.destination }}</span>
       </div>
       <div class="stop" @click="status = 'backing'">
         往
-        <span class="text">{{ lastStop.back }}</span>
+        <span class="text">{{ routeInfo.departure }}</span>
       </div>
       <div class="active" :style="{ left: status === 'coming' ? 0 : '50%' }"></div>
     </div>
