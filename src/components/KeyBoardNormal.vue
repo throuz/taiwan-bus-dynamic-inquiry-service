@@ -2,17 +2,18 @@
 import { computed, inject } from 'vue';
 import { useStore } from 'vuex';
 import KeyButton from "./KeyButton.vue";
+import { ENtoTW } from "../tools/city";
 
 const store = useStore();
 const status = inject('status');
 const searchRef = inject('searchRef');
-const searchCounty = computed(() => store.getters.searchCounty);
+const searchCity = computed(() => store.getters.searchCity);
 </script>
 
 <template>
-  <KeyButton class="select-county" :enableClick="false" @click="status = 'county'">
+  <KeyButton class="select-city" :enableClick="false" @click="status = 'city'">
     <font-awesome-icon icon="location-dot" />
-    &nbsp;&nbsp;{{ searchCounty ? searchCounty : '選擇縣市' }}
+    &nbsp;&nbsp;{{ searchCity ? ENtoTW(searchCity) : '選擇縣市' }}
   </KeyButton>
   <KeyButton class="blue manual-entry" :enableClick="false" @click="searchRef.focus()">手動輸入</KeyButton>
   <KeyButton class="blue">紅</KeyButton>
@@ -40,7 +41,7 @@ const searchCounty = computed(() => store.getters.searchCounty);
 </template>
 
 <style scoped>
-.select-county {
+.select-city {
   grid-column-start: 1;
   grid-column-end: 4;
 }

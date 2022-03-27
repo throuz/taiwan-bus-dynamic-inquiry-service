@@ -1,7 +1,7 @@
 <script setup>
 import { ref, provide, inject } from 'vue'
 import KeyBoardNormal from "./KeyBoardNormal.vue";
-import KeyboardCounty from "./KeyboardCounty.vue";
+import KeyboardCity from "./KeyboardCity.vue";
 import KeyboardMore from "./KeyboardMore.vue";
 
 const status = ref('normal');
@@ -36,7 +36,7 @@ const dragEnd = () => {
     @touchend="dragEnd"
   >
     <KeyBoardNormal v-if="status === 'normal'" />
-    <KeyboardCounty v-if="status === 'county'" />
+    <KeyboardCity v-if="status === 'city'" />
     <KeyboardMore v-if="status === 'more'" />
   </div>
 </template>

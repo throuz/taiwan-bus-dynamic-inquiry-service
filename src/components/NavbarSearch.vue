@@ -7,7 +7,7 @@ const search = computed(() => store.getters.search);
 const searchRef = inject('searchRef');
 const searchInput = ref(null);
 const distance = inject('distance');
-const searchCounty = computed(() => store.getters.searchCounty);
+const searchCity = computed(() => store.getters.searchCity);
 
 onMounted(() => {
   searchRef.value = searchInput.value;
@@ -18,7 +18,7 @@ const updateSearch = (e) => {
 }
 const focused = () => {
   distance.value = 0;
-  if (!searchCounty.value) {
+  if (!searchCity.value) {
     alert('請先選擇縣市');
     searchInput.value.blur();
   }

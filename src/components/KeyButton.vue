@@ -12,13 +12,13 @@ const props = defineProps({
 const slots = useSlots();
 const store = useStore();
 const audio = new Audio(buttonMP3);
-const searchCounty = computed(() => store.getters.searchCounty);
+const searchCity = computed(() => store.getters.searchCity);
 const touching = ref(false);
 
 const clicked = () => {
   audio.play();
   if (props.enableClick) {
-    searchCounty.value ? store.commit('addSearch', slots.default()[0].children) : alert('請先選擇縣市');
+    searchCity.value ? store.commit('addSearch', slots.default()[0].children) : alert('請先選擇縣市');
   }
 }
 </script>

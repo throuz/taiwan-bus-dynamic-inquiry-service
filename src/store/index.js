@@ -1,11 +1,10 @@
 import { createStore } from "vuex";
 import axios from "../axios";
-import TWtoEN from "../tools/county-tw-to-en";
 
 export default createStore({
   state: {
     search: '',
-    searchCounty: '',
+    searchCity: '',
     routeInfo: {},
     busRoutes: { status: 'idle', data: [] },
     routeStops: { status: 'idle', data: {} },
@@ -14,8 +13,8 @@ export default createStore({
     search(state) {
       return state.search;
     },
-    searchCounty(state) {
-      return state.searchCounty;
+    searchCity(state) {
+      return state.searchCity;
     },
     routeInfo(state) {
       return state.routeInfo;
@@ -40,8 +39,8 @@ export default createStore({
     clearSearch(state) {
       state.search = '';
     },
-    updateSearchCounty(state, payload) {
-      state.searchCounty = payload;
+    updateSearchCity(state, payload) {
+      state.searchCity = payload;
     },
     updateRouteInfo(state, payload) {
       state.routeInfo = payload;
@@ -54,10 +53,10 @@ export default createStore({
     }
   },
   actions: {
-    asyncUpdateBusRoutes({ commit, state: { searchCounty } }) {
+    asyncUpdateBusRoutes({ commit, state: { searchCity } }) {
       commit("updateBusRoutes", { status: 'pending', data: [] });
       axios
-        .get(`Route/City/${TWtoEN(searchCounty)}`, {
+        .get(`Route/City/${searchCity}`, {
           params: {
             $select: 'RouteID,RouteName,DepartureStopNameZh,DestinationStopNameZh',
             $format: 'JSON'
@@ -76,11 +75,11 @@ export default createStore({
           commit("updateBusRoutes", { status: 'error', data: [] });
         });
     },
-    asyncUpdateRouteStops({ commit, state: { searchCounty, routeInfo: { id, name } } }) {
+    asyncUpdateRouteStops({ commit, state: { searchCity, routeInfo: { id, name } } }) {
       commit("updateRouteStops", { status: 'pending', data: {} });
 
       const getStopOfRoute = () => {
-        return axios.get(`StopOfRoute/City/${TWtoEN(searchCounty)}/${name}`, {
+        return axios.get(`StopOfRoute/City/${searchCity}/${name}`, {
           params: {
             $select: 'Stops',
             $filter: `RouteID eq '${id}'`,
@@ -90,7 +89,7 @@ export default createStore({
       }
 
       const getEstimatedTimeOfArrival = () => {
-        return axios.get(`EstimatedTimeOfArrival/City/${TWtoEN(searchCounty)}/${name}`, {
+        return axios.get(`EstimatedTimeOfArrival/City/${searchCity}/${name}`, {
           params: {
             $select: 'StopName',
             $filter: `RouteID eq '${id}'`,
@@ -100,7 +99,7 @@ export default createStore({
       }
 
       const getRealTimeNearStop = () => {
-        return axios.get(`RealTimeNearStop/City/${TWtoEN(searchCounty)}/${name}`, {
+        return axios.get(`RealTimeNearStop/City/${searchCity}/${name}`, {
           params: {
             $select: 'PlateNumb,StopName',
             $filter: `RouteID eq '${id}'`,
@@ -110,7 +109,7 @@ export default createStore({
       }
 
       const getVehicle = () => {
-        return axios.get(`Vehicle/City/${TWtoEN(searchCounty)}`, {
+        return axios.get(`Vehicle/City/${searchCity}`, {
           params: {
             $filter: `VehicleType eq '1'`,
             $format: 'JSON'

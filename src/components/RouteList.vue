@@ -2,10 +2,11 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { ENtoTW } from "../tools/city";
 
 const store = useStore();
 const router = useRouter();
-const searchCounty = computed(() => store.getters.searchCounty);
+const searchCity = computed(() => store.getters.searchCity);
 const busRoutes = computed(() => store.getters.busRoutes.data);
 const search = computed(() => store.getters.search);
 const routes = computed(() => busRoutes.value.filter(route => route.name.includes(search.value)));
@@ -19,7 +20,7 @@ const routeClick = route => {
 
 <template>
   <div class="bus-list">
-    <div class="county-name">{{ searchCounty ? searchCounty : '請先選擇縣市' }}</div>
+    <div class="city-name">{{ searchCity ? ENtoTW(searchCity) : '請先選擇縣市' }}</div>
     <div v-for="route in routes" class="route-wrap" @click="routeClick(route)">
       <div class="route-name font-roboto">{{ route.name }}</div>
       <div class="route-describe">
@@ -32,7 +33,7 @@ const routeClick = route => {
 </template>
 
 <style scoped>
-.county-name {
+.city-name {
   margin-bottom: 6px;
 }
 .route-wrap {
