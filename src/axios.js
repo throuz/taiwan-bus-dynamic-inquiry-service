@@ -17,12 +17,12 @@ const GetAuthorizationHeader = () => {
 
 const service = axios.create({
   baseURL: "https://ptx.transportdata.tw/MOTC/v2/Bus/",
-  timeout: 5000,
-  headers: GetAuthorizationHeader()
+  timeout: 5000
 });
 
 service.interceptors.request.use(
   (config) => {
+    config.headers = GetAuthorizationHeader();
     return config;
   },
   (error) => {
