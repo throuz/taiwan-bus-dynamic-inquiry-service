@@ -204,7 +204,7 @@ export default createStore({
       axios
         .get('Station/NearBy', {
           params: {
-            $spatialFilter: `nearby(${lat}, ${lon}, 100)`,
+            $spatialFilter: `nearby(${lat}, ${lon}, 1000)`,
             $format: 'JSON'
           }
         })

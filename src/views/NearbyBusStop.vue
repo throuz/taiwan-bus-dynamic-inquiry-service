@@ -7,7 +7,21 @@ import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();
 const nearbyStopsStatus = computed(() => store.getters.nearbyStops.status);
-store.dispatch('asyncUpdateNearbyStops', { lat: 25.047675, lon: 121.517055 });
+
+const success = pos => {
+  const { latitude, longitude } = pos.coords;
+  store.dispatch('asyncUpdateNearbyStops', { lat: latitude, lon: longitude });
+}
+const error = err => {
+  store.commit('updateNearbyStops', { status: 'error', data: [] })
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+navigator.geolocation.getCurrentPosition(success, error, options);
 </script>
 
 <template>
