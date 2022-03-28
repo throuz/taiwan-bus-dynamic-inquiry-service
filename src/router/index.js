@@ -29,10 +29,10 @@ const routes = [
       import(/* webpackChunkName: "bus-dynamic-info" */ "../views/BusDynamicInfo.vue")
   },
   {
-    path: "/nearby-bus-stop",
-    name: "NearbyBusStop",
+    path: "/nearby-stops",
+    name: "NearbyStops",
     component: () =>
-      import(/* webpackChunkName: "nearby-bus-stop" */ "../views/NearbyBusStop.vue")
+      import(/* webpackChunkName: "nearby-stops" */ "../views/NearbyStops.vue")
   }
 ];
 

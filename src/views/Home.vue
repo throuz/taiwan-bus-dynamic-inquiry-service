@@ -11,7 +11,7 @@
     <div class="circle circle3"></div>
     <div class="circle circle4"></div>
     <div class="circle circle5"></div>
-    <router-link class="text text1" to="/nearby-bus-stop">
+    <router-link class="text text1" to="/nearby-stops">
       <font-awesome-icon icon="location-dot" />&nbsp;附近公車站
     </router-link>
     <router-link class="text text2" to="/inquire-bus">

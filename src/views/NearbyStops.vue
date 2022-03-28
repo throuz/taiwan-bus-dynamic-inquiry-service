@@ -25,7 +25,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 </script>
 
 <template>
-  <div class="nearby-bus-stop">
+  <div class="nearby-stops">
     <NavbarNearby />
     <LoadWrap :status="nearbyStopsStatus">
       <NearbyStopList />
@@ -34,7 +34,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 </template>
 
 <style scoped>
-.nearby-bus-stop {
+.nearby-stops {
   position: relative;
   height: 100vh;
   padding: 99px 16px 24px 16px;
