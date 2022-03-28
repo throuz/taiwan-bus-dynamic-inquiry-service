@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import NavbarNearby from "../components/NavbarNearby.vue";
-import RouteList from "../components/RouteList.vue";
+import NearbyStopList from "../components/NearbyStopList.vue";
 import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();
@@ -13,7 +13,7 @@ const busRoutesStatus = computed(() => store.getters.busRoutes.status);
   <div class="nearby-bus-stop">
     <NavbarNearby />
     <LoadWrap :status="busRoutesStatus">
-      <RouteList />
+      <NearbyStopList />
     </LoadWrap>
   </div>
 </template>

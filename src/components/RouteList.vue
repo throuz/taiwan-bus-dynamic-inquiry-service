@@ -19,15 +19,13 @@ const routeClick = route => {
 </script>
 
 <template>
-  <div class="bus-list">
+  <div class="route-list">
     <div class="city-name">{{ searchCity ? ENtoTW(searchCity) : '請先選擇縣市' }}</div>
     <div v-for="route in routes" class="route-wrap" @click="routeClick(route)">
       <div class="route-name font-roboto">{{ route.name }}</div>
-      <div class="route-describe">
-        <span class="text">{{ route.departure }}</span>
-        &nbsp;&nbsp;往&nbsp;&nbsp;
-        <span class="text">{{ route.destination }}</span>
-      </div>
+      <span class="text">{{ route.departure }}</span>
+      &nbsp;&nbsp;往&nbsp;&nbsp;
+      <span class="text">{{ route.destination }}</span>
     </div>
   </div>
 </template>
