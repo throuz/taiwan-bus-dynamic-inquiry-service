@@ -8,6 +8,7 @@ export default createStore({
     routeInfo: {},
     busRoutes: { status: 'idle', data: [] },
     routeStops: { status: 'idle', data: {} },
+    nearbyStops: { status: 'idle', data: [] }
   },
   getters: {
     search(state) {
@@ -24,6 +25,9 @@ export default createStore({
     },
     routeStops(state) {
       return state.routeStops;
+    },
+    nearbyStops(state) {
+      return state.nearbyStops;
     }
   },
   mutations: {
@@ -50,6 +54,9 @@ export default createStore({
     },
     updateRouteStops(state, payload) {
       state.routeStops = payload;
+    },
+    updateNearbyStops(state, payload) {
+      state.nearbyStops = payload;
     }
   },
   actions: {
@@ -190,6 +197,28 @@ export default createStore({
         .catch((error) => {
           console.log(error);
           commit('updateRouteStops', { status: 'error', data: {} });
+        });
+    },
+    asyncUpdateNearbyStops({ commit }, { lat, lon }) {
+      commit('updateNearbyStops', { status: 'pending', data: [] });
+      axios
+        .get('Station/NearBy', {
+          params: {
+            $spatialFilter: `nearby(${lat}, ${lon}, 100)`,
+            $format: 'JSON'
+          }
+        })
+        .then((response) => {
+          const stops = response.data.map(({ StationName: { Zh_tw }, Stops }) => {
+            const name = Zh_tw;
+            const routes = Stops.map(({ RouteID, RouteName: { Zh_tw } }) => ({ id: RouteID, name: Zh_tw }))
+            return { name, routes }
+          });
+          commit('updateNearbyStops', { status: 'success', data: stops });
+        })
+        .catch((error) => {
+          console.log(error);
+          commit('updateNearbyStops', { status: 'error', data: [] });
         });
     }
   },

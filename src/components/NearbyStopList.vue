@@ -1,157 +1,12 @@
 <script setup>
-// import { computed } from 'vue';
-// import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 // import { useRouter } from 'vue-router';
 
-// const store = useStore();
+const store = useStore();
 // const router = useRouter();
 // const busRoutes = computed(() => store.getters.busRoutes.data);
-const stops = [
-  {
-    name: '衡陽路',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '二二八和平公園',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '衡陽路',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '二二八和平公園',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '衡陽路',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '二二八和平公園',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '衡陽路',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '二二八和平公園',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '衡陽路',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '二二八和平公園',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '衡陽路',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  },
-  {
-    name: '二二八和平公園',
-    routes: [
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' },
-      { id: 123, name: 18, departure: '捷運麟光站', destination: '萬華' },
-      { id: 456, name: 222, departure: '測試站', destination: '衡陽路' }
-    ]
-  }
-];
+const nearbyStops = computed(() => store.getters.nearbyStops.data);
 
 const allRoutes = routes => routes.map(item => item.name).join(', ');
 
@@ -164,7 +19,7 @@ const allRoutes = routes => routes.map(item => item.name).join(', ');
 
 <template>
   <div class="nearby-stop-list">
-    <div v-for="{ name, routes } in stops" class="stop-wrap" @click="routeClick(routes)">
+    <div v-for="{ name, routes } in nearbyStops" class="stop-wrap" @click="routeClick(routes)">
       <div class="stop-name">{{ name }}</div>
       <span class="text">{{ allRoutes(routes) }}</span>
     </div>

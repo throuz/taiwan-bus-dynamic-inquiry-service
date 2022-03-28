@@ -6,13 +6,14 @@ import NearbyStopList from "../components/NearbyStopList.vue";
 import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();
-const busRoutesStatus = computed(() => store.getters.busRoutes.status);
+const nearbyStopsStatus = computed(() => store.getters.nearbyStops.status);
+store.dispatch('asyncUpdateNearbyStops', { lat: 25.047675, lon: 121.517055 });
 </script>
 
 <template>
   <div class="nearby-bus-stop">
     <NavbarNearby />
-    <LoadWrap :status="busRoutesStatus">
+    <LoadWrap :status="nearbyStopsStatus">
       <NearbyStopList />
     </LoadWrap>
   </div>
