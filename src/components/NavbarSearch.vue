@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, inject, onMounted } from 'vue';
-import { useStore } from 'vuex'
+import { useStore } from 'vuex';
 
 const store = useStore();
 const search = computed(() => store.getters.search);
