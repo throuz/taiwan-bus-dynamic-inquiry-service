@@ -27,6 +27,12 @@ const routes = [
     name: "BusDynamicInfo",
     component: () =>
       import(/* webpackChunkName: "bus-dynamic-info" */ "../views/BusDynamicInfo.vue")
+  },
+  {
+    path: "/nearby-bus-stop",
+    name: "NearbyBusStop",
+    component: () =>
+      import(/* webpackChunkName: "nearby-bus-stop" */ "../views/NearbyBusStop.vue")
   }
 ];
 
