@@ -1,23 +1,22 @@
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-// import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const store = useStore();
-// const router = useRouter();
-// const busRoutes = computed(() => store.getters.busRoutes.data);
+const router = useRouter();
 const nearbyStops = computed(() => store.getters.nearbyStops.data);
 
-// const routeClick = routes => {
-//   store.commit('updateRouteInfo', route);
-//   store.dispatch('asyncUpdateRouteStops');
-//   router.push('/bus-dynamic-info');
-// }
+const stopClick = routeID => {
+  // store.dispatch('asyncUpdateRouteStops', routeID);
+  console.log(routeID);
+  router.push('/stop-routes');
+}
 </script>
 
 <template>
   <div class="nearby-stop-list">
-    <div v-for="{ name, routes } in nearbyStops" class="stop-wrap" @click="routeClick(routes)">
+    <div v-for="{ id, name, routes } in nearbyStops" class="stop-wrap" @click="stopClick(id)">
       <div class="stop-name">{{ name }}</div>
       <span class="text">{{ routes }}</span>
     </div>
