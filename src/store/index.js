@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
-import axios from '../axios';
-import mapAjax from '../map-ajax';
+import tdxAjax from '../services/tdx-service';
+import mapAjax from '../services/map-service';
 
 export default createStore({
   state: {
@@ -80,7 +80,7 @@ export default createStore({
     },
     asyncUpdateBusRoutes({ commit, state: { searchCity } }) {
       commit('updateBusRoutes', { status: 'pending', data: [] });
-      axios
+      tdxAjax
         .get(`Route/City/${searchCity}`, {
           params: {
             $select: 'RouteID,RouteName,DepartureStopNameZh,DestinationStopNameZh',
@@ -106,7 +106,7 @@ export default createStore({
       const getStopOfRoute = () => {
         const cityFilter = ['Taipei', 'Tainan', 'NewTaipei', 'Taoyuan', 'Taichung'];
         const partialURL = cityFilter.includes(searchCity) ? 'Display' : '';
-        return axios.get(`${partialURL}StopOfRoute/City/${searchCity}/${name}`, {
+        return tdxAjax.get(`${partialURL}StopOfRoute/City/${searchCity}/${name}`, {
           params: {
             $select: 'Stops',
             $filter: `RouteID eq '${id}'`,
@@ -118,7 +118,7 @@ export default createStore({
       const getEstimatedTimeOfArrival = () => {
         const cityFilter = ['Hsinchu', 'HsinchuCounty', 'MiaoliCounty', 'ChanghuaCounty', 'NantouCounty', 'YunlinCounty', 'ChiayiCounty', 'Chiayi', 'PingtungCounty', 'YilanCounty', 'HualienCounty', 'TaitungCounty', 'PenghuCounty', 'Keelung'];
         const partialURL = cityFilter.includes(searchCity) ? '/Streaming' : '';
-        return axios.get(`EstimatedTimeOfArrival${partialURL}/City/${searchCity}/${name}`, {
+        return tdxAjax.get(`EstimatedTimeOfArrival${partialURL}/City/${searchCity}/${name}`, {
           params: {
             $select: 'StopName',
             $filter: `RouteID eq '${id}'`,
@@ -130,7 +130,7 @@ export default createStore({
       const getRealTimeNearStop = () => {
         const cityFilter = ['Hsinchu', 'HsinchuCounty', 'MiaoliCounty', 'ChanghuaCounty', 'NantouCounty', 'YunlinCounty', 'ChiayiCounty', 'Chiayi', 'PingtungCounty', 'YilanCounty', 'HualienCounty', 'TaitungCounty', 'PenghuCounty', 'Keelung'];
         const partialURL = cityFilter.includes(searchCity) ? '/Streaming' : '';
-        return axios.get(`RealTimeNearStop${partialURL}/City/${searchCity}/${name}`, {
+        return tdxAjax.get(`RealTimeNearStop${partialURL}/City/${searchCity}/${name}`, {
           params: {
             $select: 'PlateNumb,StopName',
             $filter: `RouteID eq '${id}'`,
@@ -140,7 +140,7 @@ export default createStore({
       }
 
       const getVehicle = () => {
-        return axios.get(`Vehicle/City/${searchCity}`, {
+        return tdxAjax.get(`Vehicle/City/${searchCity}`, {
           params: {
             $filter: `VehicleType eq '1'`,
             $format: 'JSON'
@@ -219,7 +219,7 @@ export default createStore({
     },
     asyncUpdateNearbyStops({ commit }, { lat, lon }) {
       commit('updateNearbyStops', { status: 'pending', data: [] });
-      axios
+      tdxAjax
         .get('Station/NearBy', {
           params: {
             $spatialFilter: `nearby(${lat}, ${lon}, 1000)`,
