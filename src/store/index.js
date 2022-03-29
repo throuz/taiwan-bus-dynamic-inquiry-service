@@ -96,11 +96,7 @@ export default createStore({
           }
         })
         .then((response) => {
-          const routes = [];
-          for (const routeData of response.data) {
-            const { RouteID, RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh } = routeData;
-            routes.push({ id: RouteID, name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh })
-          }
+          const routes = response.data.map(({ RouteID, RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh }) => ({ id: RouteID, name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh }))
           commit('updateBusRoutes', { status: 'success', data: routes });
         })
         .catch((error) => {
