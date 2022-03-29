@@ -7,9 +7,8 @@ const store = useStore();
 const router = useRouter();
 const nearbyStops = computed(() => store.getters.nearbyStops.data);
 
-const stopClick = routeID => {
-  // store.dispatch('asyncUpdateRouteStops', routeID);
-  console.log(routeID);
+const stopClick = stopID => {
+  store.dispatch('asyncUpdateNearbyRoutes', stopID);
   router.push('/stop-routes');
 }
 </script>

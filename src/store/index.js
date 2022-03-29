@@ -9,7 +9,8 @@ export default createStore({
     routeInfo: {},
     busRoutes: { status: 'idle', data: [] },
     routeStops: { status: 'idle', data: {} },
-    nearbyStops: { status: 'idle', data: [] }
+    nearbyStops: { status: 'idle', data: [] },
+    nearbyRoutes: { status: 'idle', data: [] }
   },
   getters: {
     search(state) {
@@ -29,6 +30,9 @@ export default createStore({
     },
     nearbyStops(state) {
       return state.nearbyStops;
+    },
+    nearbyRoutes(state) {
+      return state.nearbyRoutes;
     }
   },
   mutations: {
@@ -58,6 +62,9 @@ export default createStore({
     },
     updateNearbyStops(state, payload) {
       state.nearbyStops = payload;
+    },
+    updateNearbyRoutes(state, payload) {
+      state.nearbyRoutes = payload;
     },
     clearAllState(state) {
       state.search = '';
@@ -96,7 +103,7 @@ export default createStore({
           }
         })
         .then((response) => {
-          const routes = response.data.map(({ RouteID, RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh }) => ({ id: RouteID, name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh }))
+          const routes = response.data.map(({ RouteID, RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh }) => ({ id: RouteID, name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh }));
           commit('updateBusRoutes', { status: 'success', data: routes });
         })
         .catch((error) => {
@@ -240,6 +247,24 @@ export default createStore({
         .catch((error) => {
           console.log(error);
           commit('updateNearbyStops', { status: 'error', data: [] });
+        });
+    },
+    asyncUpdateNearbyRoutes({ commit, state: { searchCity } }, payload) {
+      commit('updateNearbyRoutes', { status: 'pending', data: [] });
+      tdxAjax
+        .get(`Route/City/${searchCity}/PassThrough/Station/${payload}`, {
+          params: {
+            $select: 'RouteID,RouteName,DepartureStopNameZh,DestinationStopNameZh',
+            $format: 'JSON'
+          }
+        })
+        .then((response) => {
+          const routes = response.data.map(({ RouteID, RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh }) => ({ id: RouteID, name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh }));
+          commit('updateNearbyRoutes', { status: 'success', data: routes });
+        })
+        .catch((error) => {
+          console.log(error);
+          commit('updateNearbyRoutes', { status: 'error', data: [] });
         });
     }
   },
