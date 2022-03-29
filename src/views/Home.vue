@@ -1,3 +1,10 @@
+<script setup>
+import { useStore } from 'vuex';
+
+const store = useStore();
+store.commit('clearAllState');
+</script>
+
 <template>
   <div class="home">
     <img class="logo" alt="logo" src="../assets/logo.png" />

@@ -58,6 +58,14 @@ export default createStore({
     },
     updateNearbyStops(state, payload) {
       state.nearbyStops = payload;
+    },
+    clearAllState(state) {
+      state.search = '';
+      state.searchCity = '';
+      state.routeInfo = {};
+      state.busRoutes = { status: 'idle', data: [] };
+      state.routeStops = { status: 'idle', data: {} };
+      state.nearbyStops = { status: 'idle', data: [] };
     }
   },
   actions: {
