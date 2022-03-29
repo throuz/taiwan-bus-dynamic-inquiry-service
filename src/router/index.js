@@ -33,6 +33,12 @@ const routes = [
     name: "NearbyStops",
     component: () =>
       import(/* webpackChunkName: "nearby-stops" */ "../views/NearbyStops.vue")
+  },
+  {
+    path: "/stop-routes",
+    name: "StopRoutes",
+    component: () =>
+      import(/* webpackChunkName: "stop-routes" */ "../views/StopRoutes.vue")
   }
 ];
 

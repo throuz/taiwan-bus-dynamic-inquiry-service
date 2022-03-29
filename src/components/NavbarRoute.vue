@@ -59,6 +59,9 @@ const status = inject('status');
   width: 41px;
   height: 41px;
 }
+.logo-home {
+  display: block;
+}
 .route-bar {
   position: relative;
   display: flex;
