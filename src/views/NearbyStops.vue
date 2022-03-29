@@ -10,6 +10,7 @@ const nearbyStopsStatus = computed(() => store.getters.nearbyStops.status);
 
 const success = pos => {
   const { latitude, longitude } = pos.coords;
+  store.dispatch('asyncUpdateSearchCity', { lat: latitude, lon: longitude });
   store.dispatch('asyncUpdateNearbyStops', { lat: latitude, lon: longitude });
 }
 const error = err => {

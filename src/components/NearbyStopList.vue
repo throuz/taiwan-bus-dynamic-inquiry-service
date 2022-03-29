@@ -8,8 +8,6 @@ const store = useStore();
 // const busRoutes = computed(() => store.getters.busRoutes.data);
 const nearbyStops = computed(() => store.getters.nearbyStops.data);
 
-const allRoutes = routes => routes.map(item => item.name).join(', ');
-
 // const routeClick = routes => {
 //   store.commit('updateRouteInfo', route);
 //   store.dispatch('asyncUpdateRouteStops');
@@ -21,7 +19,7 @@ const allRoutes = routes => routes.map(item => item.name).join(', ');
   <div class="nearby-stop-list">
     <div v-for="{ name, routes } in nearbyStops" class="stop-wrap" @click="routeClick(routes)">
       <div class="stop-name">{{ name }}</div>
-      <span class="text">{{ allRoutes(routes) }}</span>
+      <span class="text">{{ routes }}</span>
     </div>
   </div>
 </template>

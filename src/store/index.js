@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import axios from '../axios';
+import mapAjax from '../map-ajax';
 
 export default createStore({
   state: {
@@ -60,6 +61,23 @@ export default createStore({
     }
   },
   actions: {
+    asyncUpdateSearchCity({ commit }, { lat, lon }) {
+      commit('updateSearchCity', '');
+      mapAjax
+        .get('geocode/json', {
+          params: {
+            latlng: `${lat},${lon}`,
+            result_type: 'administrative_area_level_1'
+          }
+        })
+        .then((response) => {
+          const cityName = response.data.results[0].address_components[0].short_name.split(' ')[0];
+          commit('updateSearchCity', cityName);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     asyncUpdateBusRoutes({ commit, state: { searchCity } }) {
       commit('updateBusRoutes', { status: 'pending', data: [] });
       axios
@@ -209,10 +227,9 @@ export default createStore({
           }
         })
         .then((response) => {
-          const stops = response.data.map(({ StationName: { Zh_tw }, Stops }) => {
-            const name = Zh_tw;
-            const routes = Stops.map(({ RouteID, RouteName: { Zh_tw } }) => ({ id: RouteID, name: Zh_tw }))
-            return { name, routes }
+          const stops = response.data.map(({ StationID, StationName: { Zh_tw }, Stops }) => {
+            const routes = Stops.map(({ RouteName: { Zh_tw } }) => Zh_tw).join(', ');
+            return { id: StationID, name: Zh_tw, routes };
           });
           commit('updateNearbyStops', { status: 'success', data: stops });
         })
