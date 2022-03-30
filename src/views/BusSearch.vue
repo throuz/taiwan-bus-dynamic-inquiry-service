@@ -15,7 +15,7 @@ provide('distance', distance);
 </script>
 
 <template>
-  <div class="inquire-bus">
+  <div class="bus-search">
     <NavbarSearch />
     <LoadWrap :status="busRoutesStatus">
       <RouteList />
@@ -25,7 +25,7 @@ provide('distance', distance);
 </template>
 
 <style scoped>
-.inquire-bus {
+.bus-search {
   position: relative;
   height: 100vh;
   padding: 99px 16px 24px 16px;

@@ -8,15 +8,15 @@ import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();
 const router = useRouter();
-const routeStops = computed(() => store.getters.routeStops.data);
-const routeStopsStatus = computed(() => store.getters.routeStops.status);
+const busRouteStops = computed(() => store.getters.busRouteStops.data);
+const routeStopsStatus = computed(() => store.getters.busRouteStops.status);
 const status = ref('coming');
 provide('status', status);
 
 routeStopsStatus.value === 'idle' && router.push('/');
 
 onUnmounted(() => {
-  store.commit("updateRouteStops", { status: 'idle', data: {} });
+  store.commit("updateBusRouteStops", { status: 'idle', data: {} });
 })
 </script>
 
@@ -24,7 +24,7 @@ onUnmounted(() => {
   <div class="bus-dynamic-info">
     <NavbarRoute />
     <LoadWrap :status="routeStopsStatus">
-      <StopList :stops="status === 'coming' ? routeStops.comeStops : routeStops.backStops" />
+      <StopList :stops="status === 'coming' ? busRouteStops.comeStops : busRouteStops.backStops" />
     </LoadWrap>
   </div>
 </template>

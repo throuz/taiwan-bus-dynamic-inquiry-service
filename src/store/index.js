@@ -8,9 +8,9 @@ export default createStore({
     searchCity: '',
     routeInfo: {},
     busRoutes: { status: 'idle', data: [] },
-    routeStops: { status: 'idle', data: {} },
-    nearbyStops: { status: 'idle', data: [] },
-    nearbyRoutes: { status: 'idle', data: [] }
+    busRouteStops: { status: 'idle', data: {} },
+    nearbyStations: { status: 'idle', data: [] },
+    nearbyStationRoutes: { status: 'idle', data: [] }
   },
   getters: {
     search(state) {
@@ -25,14 +25,14 @@ export default createStore({
     busRoutes(state) {
       return state.busRoutes;
     },
-    routeStops(state) {
-      return state.routeStops;
+    busRouteStops(state) {
+      return state.busRouteStops;
     },
-    nearbyStops(state) {
-      return state.nearbyStops;
+    nearbyStations(state) {
+      return state.nearbyStations;
     },
-    nearbyRoutes(state) {
-      return state.nearbyRoutes;
+    nearbyStationRoutes(state) {
+      return state.nearbyStationRoutes;
     }
   },
   mutations: {
@@ -57,22 +57,23 @@ export default createStore({
     updateBusRoutes(state, payload) {
       state.busRoutes = payload;
     },
-    updateRouteStops(state, payload) {
-      state.routeStops = payload;
+    updateBusRouteStops(state, payload) {
+      state.busRouteStops = payload;
     },
-    updateNearbyStops(state, payload) {
-      state.nearbyStops = payload;
+    updateNearbyStations(state, payload) {
+      state.nearbyStations = payload;
     },
-    updateNearbyRoutes(state, payload) {
-      state.nearbyRoutes = payload;
+    updateNearbyStationRoutes(state, payload) {
+      state.nearbyStationRoutes = payload;
     },
     clearAllState(state) {
       state.search = '';
       state.searchCity = '';
       state.routeInfo = {};
       state.busRoutes = { status: 'idle', data: [] };
-      state.routeStops = { status: 'idle', data: {} };
-      state.nearbyStops = { status: 'idle', data: [] };
+      state.busRouteStops = { status: 'idle', data: {} };
+      state.nearbyStations = { status: 'idle', data: [] };
+      state.nearbyStationRoutes = { status: 'idle', data: [] };
     }
   },
   actions: {
@@ -111,8 +112,8 @@ export default createStore({
           commit('updateBusRoutes', { status: 'error', data: [] });
         });
     },
-    asyncUpdateRouteStops({ commit, state: { searchCity, routeInfo: { id, name } } }) {
-      commit('updateRouteStops', { status: 'pending', data: {} });
+    asyncUpdateBusRouteStops({ commit, state: { searchCity, routeInfo: { id, name } } }) {
+      commit('updateBusRouteStops', { status: 'pending', data: {} });
 
       const getStopOfRoute = () => {
         const cityFilter = ['Taipei', 'Tainan', 'NewTaipei', 'Taoyuan', 'Taichung'];
@@ -221,15 +222,15 @@ export default createStore({
             backIndex !== -1 && (backStops[backIndex].accessible = true);
           }
 
-          commit('updateRouteStops', { status: 'success', data: { comeStops, backStops } });
+          commit('updateBusRouteStops', { status: 'success', data: { comeStops, backStops } });
         })
         .catch((error) => {
           console.log(error);
-          commit('updateRouteStops', { status: 'error', data: {} });
+          commit('updateBusRouteStops', { status: 'error', data: {} });
         });
     },
-    asyncUpdateNearbyStops({ commit }, { lat, lon }) {
-      commit('updateNearbyStops', { status: 'pending', data: [] });
+    asyncUpdateNearbyStations({ commit }, { lat, lon }) {
+      commit('updateNearbyStations', { status: 'pending', data: [] });
       tdxAjax
         .get('Station/NearBy', {
           params: {
@@ -242,15 +243,15 @@ export default createStore({
             const routes = Stops.map(({ RouteName: { Zh_tw } }) => Zh_tw).join(', ');
             return { id: StationID, name: Zh_tw, routes };
           });
-          commit('updateNearbyStops', { status: 'success', data: stops });
+          commit('updateNearbyStations', { status: 'success', data: stops });
         })
         .catch((error) => {
           console.log(error);
-          commit('updateNearbyStops', { status: 'error', data: [] });
+          commit('updateNearbyStations', { status: 'error', data: [] });
         });
     },
-    asyncUpdateNearbyRoutes({ commit, state: { searchCity } }, payload) {
-      commit('updateNearbyRoutes', { status: 'pending', data: [] });
+    asyncUpdateNearbyStationRoutes({ commit, state: { searchCity } }, payload) {
+      commit('updateNearbyStationRoutes', { status: 'pending', data: [] });
       tdxAjax
         .get(`Route/City/${searchCity}/PassThrough/Station/${payload}`, {
           params: {
@@ -260,11 +261,11 @@ export default createStore({
         })
         .then((response) => {
           const routes = response.data.map(({ RouteID, RouteName: { Zh_tw }, DepartureStopNameZh, DestinationStopNameZh }) => ({ id: RouteID, name: Zh_tw, departure: DepartureStopNameZh, destination: DestinationStopNameZh }));
-          commit('updateNearbyRoutes', { status: 'success', data: routes });
+          commit('updateNearbyStationRoutes', { status: 'success', data: routes });
         })
         .catch((error) => {
           console.log(error);
-          commit('updateNearbyRoutes', { status: 'error', data: [] });
+          commit('updateNearbyStationRoutes', { status: 'error', data: [] });
         });
     }
   },

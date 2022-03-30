@@ -6,11 +6,11 @@ import NearbyRouteList from "../components/NearbyRouteList.vue";
 import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();
-const nearbyRoutesStatus = computed(() => store.getters.nearbyRoutes.status);
+const nearbyRoutesStatus = computed(() => store.getters.nearbyStationRoutes.status);
 </script>
 
 <template>
-  <div class="stop-routes">
+  <div class="nearby-station-routes">
     <NavbarStop />
     <LoadWrap :status="nearbyRoutesStatus">
       <NearbyRouteList />
@@ -19,7 +19,7 @@ const nearbyRoutesStatus = computed(() => store.getters.nearbyRoutes.status);
 </template>
 
 <style scoped>
-.stop-routes {
+.nearby-station-routes {
   position: relative;
   height: 100vh;
   padding: 99px 16px 24px 16px;

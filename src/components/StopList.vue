@@ -14,7 +14,7 @@ defineProps({
 const second = ref(0);
 const counting = setInterval(() => {
   if (second.value === 10) {
-    store.dispatch('asyncUpdateRouteStops');
+    store.dispatch('asyncUpdateBusRouteStops');
     second.value = 0
   } else {
     second.value++

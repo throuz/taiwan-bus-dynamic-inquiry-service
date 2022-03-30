@@ -2,19 +2,19 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import NavbarNearby from "../components/NavbarNearby.vue";
-import NearbyStopList from "../components/NearbyStopList.vue";
+import NearbyStationList from "../components/NearbyStationList.vue";
 import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();
-const nearbyStopsStatus = computed(() => store.getters.nearbyStops.status);
+const nearbyStopsStatus = computed(() => store.getters.nearbyStations.status);
 
 const success = pos => {
   const { latitude, longitude } = pos.coords;
   store.dispatch('asyncUpdateSearchCity', { lat: latitude, lon: longitude });
-  store.dispatch('asyncUpdateNearbyStops', { lat: latitude, lon: longitude });
+  store.dispatch('asyncUpdateNearbyStations', { lat: latitude, lon: longitude });
 }
 const error = err => {
-  store.commit('updateNearbyStops', { status: 'error', data: [] })
+  store.commit('updateNearbyStations', { status: 'error', data: [] })
   console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 const options = {
@@ -26,16 +26,16 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 </script>
 
 <template>
-  <div class="nearby-stops">
+  <div class="nearby-stations">
     <NavbarNearby />
     <LoadWrap :status="nearbyStopsStatus">
-      <NearbyStopList />
+      <NearbyStationList />
     </LoadWrap>
   </div>
 </template>
 
 <style scoped>
-.nearby-stops {
+.nearby-stations {
   position: relative;
   height: 100vh;
   padding: 99px 16px 24px 16px;

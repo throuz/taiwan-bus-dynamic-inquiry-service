@@ -5,18 +5,18 @@ import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
-const nearbyRoutes = computed(() => store.getters.nearbyRoutes.data);
+const nearbyStationRoutes = computed(() => store.getters.nearbyStationRoutes.data);
 
 const routeClick = route => {
   store.commit('updateRouteInfo', route);
-  store.dispatch('asyncUpdateRouteStops');
+  store.dispatch('asyncUpdateBusRouteStops');
   router.push('/bus-dynamic-info');
 }
 </script>
 
 <template>
   <div class="nearby-route-list">
-    <div v-for="route in nearbyRoutes" class="route-wrap" @click="routeClick(route)">
+    <div v-for="route in nearbyStationRoutes" class="route-wrap" @click="routeClick(route)">
       <div class="route-name font-roboto">{{ route.name }}</div>往&nbsp;&nbsp;
       <span class="text">{{ route.departure }}</span>
     </div>

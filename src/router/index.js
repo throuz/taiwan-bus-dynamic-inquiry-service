@@ -17,10 +17,10 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
-    path: "/inquire-bus",
-    name: "InquireBus",
+    path: "/bus-search",
+    name: "BusSearch",
     component: () =>
-      import(/* webpackChunkName: "inquire-bus" */ "../views/InquireBus.vue")
+      import(/* webpackChunkName: "bus-search" */ "../views/BusSearch.vue")
   },
   {
     path: "/bus-dynamic-info",
@@ -29,16 +29,16 @@ const routes = [
       import(/* webpackChunkName: "bus-dynamic-info" */ "../views/BusDynamicInfo.vue")
   },
   {
-    path: "/nearby-stops",
-    name: "NearbyStops",
+    path: "/nearby-stations",
+    name: "NearbyStations",
     component: () =>
-      import(/* webpackChunkName: "nearby-stops" */ "../views/NearbyStops.vue")
+      import(/* webpackChunkName: "nearby-stations" */ "../views/NearbyStations.vue")
   },
   {
-    path: "/stop-routes",
-    name: "StopRoutes",
+    path: "/nearby-station-routes",
+    name: "NearbyStationRoutes",
     component: () =>
-      import(/* webpackChunkName: "stop-routes" */ "../views/StopRoutes.vue")
+      import(/* webpackChunkName: "nearby-station-routes" */ "../views/NearbyStationRoutes.vue")
   }
 ];
 

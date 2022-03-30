@@ -18,10 +18,10 @@ store.commit('clearAllState');
     <div class="circle circle3"></div>
     <div class="circle circle4"></div>
     <div class="circle circle5"></div>
-    <router-link class="text text1" to="/nearby-stops">
+    <router-link class="text text1" to="/nearby-stations">
       <font-awesome-icon icon="location-dot" />&nbsp;附近公車站
     </router-link>
-    <router-link class="text text2" to="/inquire-bus">
+    <router-link class="text text2" to="/bus-search">
       <font-awesome-icon icon="magnifying-glass" />&nbsp;查詢公車
     </router-link>
     <div class="text text3">

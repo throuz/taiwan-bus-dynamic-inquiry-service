@@ -13,7 +13,7 @@ const routes = computed(() => busRoutes.value.filter(route => route.name.include
 
 const routeClick = route => {
   store.commit('updateRouteInfo', route);
-  store.dispatch('asyncUpdateRouteStops');
+  store.dispatch('asyncUpdateBusRouteStops');
   router.push('/bus-dynamic-info');
 }
 </script>
