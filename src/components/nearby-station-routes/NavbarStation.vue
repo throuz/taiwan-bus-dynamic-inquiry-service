@@ -5,7 +5,7 @@ const router = useRouter();
 </script>
 
 <template>
-  <div class="navbar-stop">
+  <div class="navbar-station">
     <div class="top-bar">
       <div class="back" @click="router.back()">
         <font-awesome-icon icon="angle-left" size="lg" />
@@ -13,13 +13,13 @@ const router = useRouter();
       <router-link to="/">
         <img class="logo-home" alt="logo" src="../../assets/logo-home.png" />
       </router-link>
-      <span class="stop-name">衡陽路</span>
+      <span class="station-name">衡陽路</span>
     </div>
   </div>
 </template>
 
 <style scoped>
-.navbar-stop {
+.navbar-station {
   position: fixed;
   left: 0;
   top: 0;
@@ -47,7 +47,7 @@ const router = useRouter();
 .logo-home {
   display: block;
 }
-.stop-name {
+.station-name {
   position: absolute;
   right: 16px;
   display: flex;
