@@ -1,7 +1,7 @@
 <template>
   <div class="navbar-nearby">
     <router-link to="/">
-      <img class="logo-home" alt="logo" src="../assets/logo-home.png" />
+      <img class="logo-home" alt="logo" src="../../assets/logo-home.png" />
     </router-link>
     <span>我的附近</span>
   </div>

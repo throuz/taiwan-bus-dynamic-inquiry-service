@@ -2,8 +2,8 @@
 import { ref, computed, provide, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import NavbarRoute from "../components/NavbarRoute.vue";
-import StopList from "../components/StopList.vue";
+import NavbarRoute from "../components/bus-dynamic-info/NavbarRoute.vue";
+import StopList from "../components/bus-dynamic-info/StopList.vue";
 import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();

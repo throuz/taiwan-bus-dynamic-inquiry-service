@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-import NavbarNearby from "../components/NavbarNearby.vue";
-import NearbyStationList from "../components/NearbyStationList.vue";
+import NavbarNearby from "../components/nearby-stations/NavbarNearby.vue";
+import NearbyStationList from "../components/nearby-stations/NearbyStationList.vue";
 import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();

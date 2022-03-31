@@ -11,7 +11,7 @@ const router = useRouter();
         <font-awesome-icon icon="angle-left" size="lg" />
       </div>
       <router-link to="/">
-        <img class="logo-home" alt="logo" src="../assets/logo-home.png" />
+        <img class="logo-home" alt="logo" src="../../assets/logo-home.png" />
       </router-link>
       <span class="stop-name">衡陽路</span>
     </div>

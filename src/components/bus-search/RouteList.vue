@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { ENtoTW } from "../tools/city";
+import { ENtoTW } from "../../tools/city";
 
 const store = useStore();
 const router = useRouter();

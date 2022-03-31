@@ -16,7 +16,7 @@ const status = inject('status');
         <font-awesome-icon icon="angle-left" size="lg" />
       </div>
       <router-link to="/">
-        <img class="logo-home" alt="logo" src="../assets/logo-home.png" />
+        <img class="logo-home" alt="logo" src="../../assets/logo-home.png" />
       </router-link>
     </div>
     <div class="route-bar">

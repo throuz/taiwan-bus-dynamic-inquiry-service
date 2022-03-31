@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed, provide } from 'vue';
 import { useStore } from 'vuex';
-import NavbarSearch from "../components/NavbarSearch.vue";
-import RouteList from "../components/RouteList.vue";
-import KeyboardWrap from "../components/KeyboardWrap.vue";
+import NavbarSearch from "../components/bus-search/NavbarSearch.vue";
+import RouteList from "../components/bus-search/RouteList.vue";
+import KeyboardWrap from "../components/bus-search/KeyboardWrap.vue";
 import LoadWrap from "../components/LoadWrap.vue";
 
 const store = useStore();

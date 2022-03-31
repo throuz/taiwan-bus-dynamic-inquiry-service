@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, useSlots } from 'vue'
 import { useStore } from 'vuex'
-import buttonMP3 from "../assets/button.mp3";
+import buttonMP3 from "../../assets/button.mp3";
 
 const props = defineProps({
   enableClick: {

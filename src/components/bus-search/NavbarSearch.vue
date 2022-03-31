@@ -28,7 +28,7 @@ const focused = () => {
 <template>
   <div class="navbar-search">
     <router-link to="/">
-      <img class="logo-home" alt="logo" src="../assets/logo-home.png" />
+      <img class="logo-home" alt="logo" src="../../assets/logo-home.png" />
     </router-link>
     <input
       ref="searchInput"

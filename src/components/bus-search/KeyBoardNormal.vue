@@ -2,7 +2,7 @@
 import { computed, inject } from 'vue';
 import { useStore } from 'vuex';
 import KeyButton from "./KeyButton.vue";
-import { ENtoTW } from "../tools/city";
+import { ENtoTW } from "../../tools/city";
 
 const store = useStore();
 const status = inject('status');

@@ -2,7 +2,7 @@
 import { ref, computed, inject } from 'vue';
 import { useStore } from 'vuex';
 import KeyButton from "./KeyButton.vue";
-import { cities } from "../tools/city";
+import { cities } from "../../tools/city";
 
 const store = useStore();
 const status = inject('status');
