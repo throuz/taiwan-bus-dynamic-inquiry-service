@@ -24,9 +24,9 @@ store.commit('clearAllState');
     <router-link class="text text2" to="/bus-search">
       <font-awesome-icon icon="magnifying-glass" />&nbsp;查詢公車
     </router-link>
-    <div class="text text3">
+    <router-link class="text text3" to="/inter-bus-search">
       <font-awesome-icon icon="magnifying-glass" />&nbsp;查詢客運
-    </div>
+    </router-link>
     <div class="copyright">Taiwan Bus © Code: Rui Sheng Xu / Design: KT</div>
   </div>
 </template>

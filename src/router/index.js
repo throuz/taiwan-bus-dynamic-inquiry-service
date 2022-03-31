@@ -30,6 +30,12 @@ const routes = [
     name: "NearbyStationRoutes",
     component: () =>
       import(/* webpackChunkName: "nearby-station-routes" */ "../views/NearbyStationRoutes.vue")
+  },
+  {
+    path: "/inter-bus-search",
+    name: "InterBusSearch",
+    component: () =>
+      import(/* webpackChunkName: "inter-bus-search" */ "../views/InterBusSearch.vue")
   }
 ];
 
