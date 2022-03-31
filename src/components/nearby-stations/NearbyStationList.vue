@@ -7,8 +7,9 @@ const store = useStore();
 const router = useRouter();
 const nearbyStations = computed(() => store.getters.nearbyStations.data);
 
-const stationClick = stationID => {
-  store.dispatch('asyncUpdateNearbyStationRoutes', stationID);
+const stationClick = station => {
+  store.commit('updateStationInfo', station);
+  store.dispatch('asyncUpdateNearbyStationRoutes');
   router.push('/nearby-station-routes');
 }
 </script>
@@ -18,7 +19,7 @@ const stationClick = stationID => {
     <div
       v-for="{ id, name, routes } in nearbyStations"
       class="station-wrap"
-      @click="stationClick(id)"
+      @click="stationClick({ id, name })"
     >
       <div class="station-name">{{ name }}</div>
       <span class="text">{{ routes }}</span>

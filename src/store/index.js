@@ -9,6 +9,7 @@ export default createStore({
     routeInfo: {},
     busRoutes: { status: 'idle', data: [] },
     busRouteStops: { status: 'idle', data: {} },
+    stationInfo: {},
     nearbyStations: { status: 'idle', data: [] },
     nearbyStationRoutes: { status: 'idle', data: [] }
   },
@@ -27,6 +28,9 @@ export default createStore({
     },
     busRouteStops(state) {
       return state.busRouteStops;
+    },
+    stationInfo(state) {
+      return state.stationInfo;
     },
     nearbyStations(state) {
       return state.nearbyStations;
@@ -60,6 +64,9 @@ export default createStore({
     updateBusRouteStops(state, payload) {
       state.busRouteStops = payload;
     },
+    updateStationInfo(state, payload) {
+      state.stationInfo = payload;
+    },
     updateNearbyStations(state, payload) {
       state.nearbyStations = payload;
     },
@@ -72,6 +79,7 @@ export default createStore({
       state.routeInfo = {};
       state.busRoutes = { status: 'idle', data: [] };
       state.busRouteStops = { status: 'idle', data: {} };
+      state.stationInfo = {};
       state.nearbyStations = { status: 'idle', data: [] };
       state.nearbyStationRoutes = { status: 'idle', data: [] };
     }
@@ -250,10 +258,10 @@ export default createStore({
           commit('updateNearbyStations', { status: 'error', data: [] });
         });
     },
-    asyncUpdateNearbyStationRoutes({ commit, state: { searchCity } }, payload) {
+    asyncUpdateNearbyStationRoutes({ commit, state: { searchCity, stationInfo: { id } } }) {
       commit('updateNearbyStationRoutes', { status: 'pending', data: [] });
       tdxAjax
-        .get(`Route/City/${searchCity}/PassThrough/Station/${payload}`, {
+        .get(`Route/City/${searchCity}/PassThrough/Station/${id}`, {
           params: {
             $select: 'RouteID,RouteName,DepartureStopNameZh,DestinationStopNameZh',
             $format: 'JSON'

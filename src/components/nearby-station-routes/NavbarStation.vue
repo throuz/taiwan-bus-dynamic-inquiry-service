@@ -1,7 +1,11 @@
 <script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
+const store = useStore();
 const router = useRouter();
+const stationInfo = computed(() => store.getters.stationInfo);
 </script>
 
 <template>
@@ -13,7 +17,7 @@ const router = useRouter();
       <router-link to="/">
         <img class="logo-home" alt="logo" src="../../assets/logo-home.png" />
       </router-link>
-      <span class="station-name">衡陽路</span>
+      <span class="station-name">{{ stationInfo.name }}</span>
     </div>
   </div>
 </template>
